@@ -1,0 +1,22 @@
+version: "2.1"
+
+services:
+  main:
+    image: mysql:8
+    container_name: live.mysql
+    labels:
+      svc: live.mysql
+    restart: always
+    command: ["--default-time-zone=UTC"]
+    ports:
+      - 3306:3306
+    networks:
+      - live_backend
+    volumes:
+      - mysql-datavolume:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "ITpg`01M[ls94l7xWD?n94hb0SL|r)"
+
+networks:
+  live_backend:
+    external: true
