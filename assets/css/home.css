@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.bg-custom {
+    background-color: #495464; /* Cambia este color al que desees */
+}
+
+header .logo img {
+    height: 40px; /* Cambié el tamaño a 40px para que coincida con el HTML */
+}
+
+header .nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem; /* Agrandar la letra */
+}
+
+header .nav-item.dropdown {
+    padding-left: 40px;
+    margin-left: 60px; /* Incrementar este valor para agrandar la distancia a la izquierda */
+    margin-right: 60px; /* Incrementar este valor para agrandar la distancia a la derecha */
+}
+
+header .dropdown-menu {
+    background-color: #495464; /* Mismo color de fondo que la barra de navegación */
+}
+
+header .dropdown-menu .dropdown-item {
+    color: #fff; /* Color de texto blanco */
+}
+
+header .dropdown-menu .dropdown-item:hover {
+    background-color: #333; /* Cambia el color de fondo al pasar el ratón */
+}
+
+header .user-info {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+main {
+    padding: 2rem;
+}
+
+.hero {
+    background-color: #6200ea;
+    color: #fff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+}
+
+.hero h2 {
+    font-size: 1.5rem;
+}
+
+.hero img {
+    margin-top: 40px; /* Incrementé el margen superior */
+    border-radius: 10px;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #333;
+    color: #fff;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
