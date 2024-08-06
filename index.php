@@ -68,11 +68,18 @@
                             <label for="exampleInputPassword1" class="form-label">Contraseña</label>
                             <input type="password" class="form-control" id="exampleInputPassword1">
                         </div>
-                        <button type="submit" class="btn btn-primary w-100" >
+                        <button type="submit" class="btn btn-primary w-100">
                             <a href="./home.php" class="text-black">
                                 Iniciar sesión
                             </a>
-                            </button>
+                        </button>
+                        <?php
+                        require_once __DIR__ . '/core/connection.php';
+                        $coneccion=new Database();
+                        $coneccion->connect();
+                        // $weatherApiKey = $_ENV['DB_USERNAME'];
+                        // echo $weatherApiKey;
+                        ?>
                     </form>
                 </div>
             </div>
