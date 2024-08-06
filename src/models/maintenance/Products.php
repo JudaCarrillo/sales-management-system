@@ -57,13 +57,13 @@ class Products
     //actualizar un producto
     public function update($product)
     {
-        $sql = "UPDATE " . $this->table . " SET name = '" . $product['name'] . "', source = '" . $product['source'] . "', brand = '" . $product['brand'] . "', unit = '" . $product['unit'] . "', category = '" . $product['category'] . "', price = '" . $product['price'] . "', stock = '" . $product['stock'] . "' WHERE code = '" . $product['code'] . "'";
+        $sql = "UPDATE " . $this->table . " SET name = '" . $product['name'] . "', source = '" . $product['source'] . "', brand = '" . $product['brand'] . "', unit = '" . $product['unit'] . "', category = '" . $product['category'] . "', price = '" . $product['price'] . "', stock = '" . $product['stock']. "', status =  '". $product['status'] . "' WHERE code = '" . $product['code'] . "'";
         $this->db->connect()->query($sql);
     }
     // Cambiar de estado
     public function disable($code)
     {
-        $sql = "UPDATE " . $this->table . " SET status = 2 WHERE code = ?";
+        $sql = "UPDATE " . $this->table . " SET status = 0 WHERE code = ?";
         $stmt = $this->db->connect()->prepare($sql);
         $stmt->bind_param('s', $code);
         $stmt->execute();

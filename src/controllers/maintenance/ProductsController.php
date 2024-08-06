@@ -29,6 +29,10 @@ class ProductsController
             echo "Error: El producto con el código " . $product['code'] . " no existe.";
             return;
         }
+
+        $statusValue =  !empty($product['status']) ? 1 : $product['status'];
+        $product['status'] = $statusValue; 
+        
         $this->db->update($product);
     }
     //deshabilitar
