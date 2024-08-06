@@ -68,11 +68,11 @@
                             <label for="exampleInputPassword1" class="form-label">Contraseña</label>
                             <input type="password" class="form-control" id="exampleInputPassword1">
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">
+                        <button type="submit" class="btn btn-primary w-100" >
                             <a href="./home.php" class="text-black">
                                 Iniciar sesión
                             </a>
-                        </button>
+                            </button>
                     </form>
                 </div>
             </div>
