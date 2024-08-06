@@ -1,4 +1,5 @@
 <?php 
+require_once __DIR__ . '../../../../core/connection.php';
 class Employees {
     private $db;
     private $table = "employees";
