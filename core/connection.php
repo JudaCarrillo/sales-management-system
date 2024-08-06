@@ -2,13 +2,26 @@
 // core/Database.php
 
 class Database {
-    public static function connect() {
-        $servername = $_ENV['DB_HOST'];
-        $username = $_ENV['DB_USER'];
-        $password = $_ENV['DB_PASSWORD'];
-        $dbname = $_ENV['DB_NAME'];
-        $db = new mysqli($servername, $username, $password, $dbname);
-        $db->query("SET NAMES 'utf8'");
-        return $db;
+    private $servername = $_ENV['DB_HOST'];
+    private $username = $_ENV['DB_USERNAME'];
+    private $password = $_ENV['DB_PASSWORD'];
+    private $dbname = $_ENV['DB_NAME'];
+    private $connection;
+
+    public function connect() {
+        $this->connection = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+
+        if ($this->connection->connect_error) {
+            die("Connection failed: " . $this->connection->connect_error);
+        }
+
+        $this->connection->query("SET NAMES 'utf8'");
+        return $this->connection;
+    }
+
+    public function close() {
+        if ($this->connection) {
+            $this->connection->close();
+        }
     }
 }
