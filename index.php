@@ -74,9 +74,21 @@
                             </a>
                         </button>
                         <?php
-                        require_once __DIR__ . '/core/connection.php';
-                        $coneccion=new Database();
-                        $coneccion->connect();
+                        // require_once __DIR__ . '/core/connection.php';
+                        require_once __DIR__ . '/src/models/mantenimiento/Customers.php';
+
+                        // $coneccion=new Database();
+                        // $coneccion->connect();
+                        $customer = new Customers();
+                        $datos =  $customer->getAll();
+
+                        for ($i = 0; $i < count($datos); ++$i) {
+                            foreach ($datos[$i] as $key => $value) {
+                                echo $key . ': ' . $value . '<br>';
+                            }
+                        }
+
+                        // echo $customer;
                         // $weatherApiKey = $_ENV['DB_USERNAME'];
                         // echo $weatherApiKey;
                         ?>
