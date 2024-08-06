@@ -9,7 +9,7 @@
 </head>
 <body>
     <header class="bg-custom text-white py-3">
-        <div class="container d-flex justify-content-between align-items-center">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
             <div class="logo font-weight-bold">
                 <img src="./assets/img/logo_white_small.png" alt="Logo" style="height: 40px;">
             </div>
