@@ -37,7 +37,6 @@ switch ($action) {
         break;
 
     case 'Editar Producto':
-        // Ensure the product exists before attempting to update
         if (!$controller->get('code = "' . $product['code'] . '"')) {
             echo "Error: Producto no encontrado";
             exit;
