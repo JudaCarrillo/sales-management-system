@@ -1,5 +1,5 @@
 <?php
-// controllers/ClienteController.php
+// controllers/salesOrdersController.php
 require_once '../../models/sales/SalesOrders.php';
 
 class SalesOrdersController {
@@ -12,7 +12,6 @@ class SalesOrdersController {
     }
     // Save a new sales order
     /* 
-    `sales_order_id` integer PRIMARY KEY AUTO_INCREMENT,
     `code` string,
     `customer_id` integer,
     `employee_id` string,
@@ -34,7 +33,6 @@ class SalesOrdersController {
     public function save() {
         $salesOrder = new SalesOrders();
         $data = [
-            'sales_order_id' => $_POST['sales_order_id'],
             'code' => $_POST['code'],
             'customer_id' => $_POST['customer_id'],
             'employee_id' => $_POST['employee_id'],

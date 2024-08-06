@@ -38,7 +38,6 @@ class SalesOrders
     public function update($data)
     {
         $sql = "UPDATE " . $this->table . " SET 
-        sales_order_id = '" . $data['sales_order_id'] . "',
         code = '" . $data['code'] . "',
         customer_id = '" . $data['customer_id'] . "',
         employee_id = '" . $data['employee_id'] . "',

@@ -1,5 +1,5 @@
 <?php
-// controllers/ClienteController.php
+// controllers/salesDetailsController.php
 require_once '../../models/sales/SalesDetails.php.php';
 
 class SalesDetailsController {
@@ -8,6 +8,8 @@ class SalesDetailsController {
         $salesOrder = new SalesDetails();
         $salesOrders = $salesOrder->getAll();
         require_once '../../api.php';
+        header('Location: http://sales-management-system.test:85/api/index.php');
+
     }
     // Save a new sales order
     /* 
@@ -21,7 +23,6 @@ class SalesDetailsController {
     public function save() {
         $salesOrder = new SalesDetails();
         $data = [
-            'sales_detail_id' => $_POST['sales_detail_id'],
             'sales_order_id' => $_POST['sales_order_id'],
             'product_id' => $_POST['product_id'],
             'quantity' => $_POST['quantity'],
