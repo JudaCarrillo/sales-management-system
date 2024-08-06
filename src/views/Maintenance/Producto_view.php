@@ -77,10 +77,12 @@
                     <h1>LISTADO DE PRODUCTOS</h1>
                     <div class="group">
                         <label for="search" class="search_label" >Buscado por codigo</label>
-                        <input type="text" name="search" id="search">
-
+                        <div class="search-img">
+                            <input type="text" name="search" id="search">
+                            <a href=""><img src="../../../assets/img/lupa.png" alt=""></a>
+                        </div>
                     </div>
-
+                    
                 </div>
                 
                 <div class="actions">
