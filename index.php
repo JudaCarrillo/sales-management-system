@@ -73,13 +73,6 @@
                                 Iniciar sesión
                             </a>
                         </button>
-                        <?php
-                        require_once __DIR__ . '/core/connection.php';
-                        $coneccion=new Database();
-                        $coneccion->connect();
-                        // $weatherApiKey = $_ENV['DB_USERNAME'];
-                        // echo $weatherApiKey;
-                        ?>
                     </form>
                 </div>
             </div>
