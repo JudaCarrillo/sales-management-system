@@ -69,9 +69,19 @@ main {
 }
 
 .hero img {
-    margin-top: 40px; /* Incrementé el margen superior */
+    margin-top: 10px; /* Incrementé el margen superior */
     border-radius: 10px;
 }
+
+/* home.css */
+.centered-image {
+    max-width: 20%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 footer {
     text-align: center;
