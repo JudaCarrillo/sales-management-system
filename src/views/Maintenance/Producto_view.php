@@ -8,6 +8,9 @@
 </head>
 <body>
 <body>
+<header class="bg-custom text-white py-3">
+        <?php include '../../../assets/component/navbar.php'; ?>
+    </header>
     <div class="container">
         <section class="title">
             <h1>Mantenimiento de productos</h1>
