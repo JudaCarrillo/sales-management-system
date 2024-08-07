@@ -170,7 +170,7 @@ $employees = $controller->get($where, $columns);
                     <div class="actions">
                         <button class="nuevo" name="action" value="Guardar Empleado">Nuevo</button>
                         <button class="editar" name="action" value="Editar Empleado">Editar</button>
-                        <button class="cancelar" name="action" value="Deshabilitar Empleado">Cancelar</button>
+                        <button class="cancelar" name="action" value="Deshabilitar Empleado">Deshabilitar</button>
                     </div>
                     <table>
                         <thead>

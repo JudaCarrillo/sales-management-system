@@ -25,9 +25,13 @@ class EmployeesController
             echo "Error: El empleado con el DNI " . $employee['dni'] . " ya existe.";
             return;
         }
-
+        // Verifica si ya existe el código
+        if (isset($employee['code']) && $this->db->codeExists($employee['code'])) {
+            echo "Error: El empleado con el código " . $employee['code'] . " ya existe.";
+            return;
+        }
         // Asegúrate de que el campo status esté correctamente configurado
-        $statusValue = !empty($employee['status']) ? '1' : '0'; 
+        $statusValue = !empty($employee['status']) ? '1' : '0';
         $employee['status'] = $statusValue;
 
         $this->db->save($employee);
@@ -44,7 +48,7 @@ class EmployeesController
         }
 
         // Asegúrate de que el campo status esté correctamente configurado
-        $statusValue = !empty($employee['status']) ? '1' : '0'; 
+        $statusValue = !empty($employee['status']) ? '1' : '0';
         $employee['status'] = $statusValue;
 
         $this->db->update($employee);
