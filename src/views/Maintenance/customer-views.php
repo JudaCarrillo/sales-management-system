@@ -61,9 +61,9 @@
                             <label for="estatus">Estado:</label>
                             <input type="checkbox" id="status" name="status" checked="true">
                             </div>
-                            
-                        </article>
-                        <div class="separado">
+                            <div>
+
+                            </div>
                             <div class="group">
                                 <label for="fecha_creacion">Fecha de Creación</label>
                                 <input type="date" name="fecha_creacion" id="fecha_creacion">
@@ -72,7 +72,10 @@
                                 <label for="fecha_actualizacion">Fecha de Actualización</label>
                                 <input type="date" name="fecha_actualizacion" id="fecha_actualizacion">
                             </div>
-                        </div>
+                        
+                            
+                        </article>
+                        
                     </form>
 
                 
