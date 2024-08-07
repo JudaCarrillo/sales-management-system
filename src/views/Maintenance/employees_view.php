@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../assets/css/clientes-view.css">
+    <link rel="stylesheet" href="../../../assets/css/employees-view.css">
     <title>Document</title>
 </head>
 <body>
 <body>
     <div class="container">
         <section class="title">
-            <h1>Mantenimiento de productos</h1>
+            <h1>Mantenimiento de Empleados</h1>
         </section>
         <div class="dividor">
             <section class="form">
-                <h1>DETALLES DE PRODUCTO</h1>
+                <h1>DETALLES DE EMPLEADOS</h1>
                 <form action="../../../save_product.php"  method="post">
                         <article class="Parte2">
                             <div class="group">
@@ -31,22 +31,34 @@
                             </div>
                             <div class="group">
                                 <label for="ApellidoPaterno">Apellido Paterno</label>
-                                <input type="text" name="category" id="category">
+                                <input type="text" name="" id="">
                             </div>
                             <div class="group">
-                                <label for="marca">Marca</label>
-                                <input type="text" name="brand" id="brand">
+                                <label for="direccion">Direccion</label>
+                                <input type="text" name="" id="">
                             </div>
                             <div class="group">
-                                <label for="stock">Stock</label>
-                                <input type="number" name="stock" id="stock">
+                                <label for="dni">DNI</label>
+                                <input type="number" name="dni" id="d">
                             </div>
                             <div class="group">
-                                <label for="precio">Precio</label>
+                                <label for="ruc">RUC</label>
                                 <input type="number" name="price" id="price">
                             </div>
                             <div class="group">
-                            <label for="stock">Estado:</label>
+                                <label for="telefono">Telefono</label>
+                                <input type="number" name="price" id="price">
+                            </div>
+                            <div class="group">
+                                <label for="usuario">Usuario</label>
+                                <input type="text" name="price" id="price">
+                            </div>
+                            <div class="group">
+                                <label for="contrasena">Contraseña</label>
+                                <input type="password" name="price" id="price">
+                            </div>
+                            <div class="group">
+                            <label for="estatus">Estado:</label>
                             <input type="checkbox" id="status" name="status" checked="true">
                             </div>
                             
@@ -68,7 +80,7 @@
 
             <section class="listado">
                 <div class="caja">
-                    <h1>LISTADO DE PRODUCTOS</h1>
+                    <h1>LISTADO DE EMPLEADOS</h1>
                     <div class="group">
                         <label for="search" class="search_label" >Buscado por codigo</label>
                         <div class="search-img">
