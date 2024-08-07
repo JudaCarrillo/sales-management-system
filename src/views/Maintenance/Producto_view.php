@@ -169,7 +169,7 @@ $products = $controller->get($where, $columns);
                     <div class="actions">
                         <button class="nuevo" name="action" value="Guardar Producto">Nuevo</button>
                         <button class="editar" name="action" value="Editar Producto">Editar</button>
-                        <button class="cancelar" name="action" value="Deshabilitar Producto">Cancelar</button>
+                        <button class="cancelar" name="action" value="Deshabilitar Producto">Deshabilitar</button>
                     </div>
                     <table>
                         <thead>

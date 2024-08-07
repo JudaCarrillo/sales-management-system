@@ -60,6 +60,17 @@ class Employees
         );
         $stmt->execute();
     }
+    // En Employees.php
+    public function codeExists($code)
+    {
+        $sql = "SELECT COUNT(*) AS count FROM " . $this->table . " WHERE code = ?";
+        $stmt = $this->db->connect()->prepare($sql);
+        $stmt->bind_param('i', $code);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+        return $row['count'] > 0;
+    }
 
     // Verificar si el DNI existe
     public function dniExists($dni)
