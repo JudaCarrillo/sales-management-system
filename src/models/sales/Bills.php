@@ -24,19 +24,6 @@ class Bills
     }
 
     // Save a new bill
-    /*
-    `id` integer PRIMARY KEY,
-    `sales_order_id` string UNIQUE,
-    `sales_order_details` json,
-    `customer_dni` string,
-    `customer_name` string,
-    `address` string,
-    `date_issue` datetime,
-    `igv` bool,
-    `currency` string,
-    `created_at` datetime,
-    `updated_at` datetime
-    */
     public function save($data)
     {
         $sql = "INSERT INTO " . $this->table .
