@@ -1,9 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `SalesManagementDB`;
-USE `SalesManagementDB`;
-
-
 CREATE TABLE `customers` (
-  `customer_id` integer PRIMARY KEY AUTO_INCREMENT,
+  `id` integer PRIMARY KEY,
   `code` integer,
   `name` string,
   `father_last_name` string,
@@ -20,7 +16,7 @@ CREATE TABLE `customers` (
 );
 
 CREATE TABLE `products` (
-  `product_id` integer PRIMARY KEY AUTO_INCREMENT,
+  `id` integer PRIMARY KEY,
   `code` string,
   `name` string,
   `source` tinyint,
@@ -35,7 +31,7 @@ CREATE TABLE `products` (
 );
 
 CREATE TABLE `employees` (
-  `employee_id` integer PRIMARY KEY AUTO_INCREMENT,
+  `id` integer PRIMARY KEY,
   `code` integer,
   `name` string,
   `father_last_name` string,
@@ -51,7 +47,7 @@ CREATE TABLE `employees` (
 );
 
 CREATE TABLE `sales_orders` (
-  `sales_order_id` integer PRIMARY KEY AUTO_INCREMENT,
+  `id` integer PRIMARY KEY,
   `code` string,
   `customer_id` integer,
   `employee_id` string,
@@ -72,19 +68,35 @@ CREATE TABLE `sales_orders` (
 );
 
 CREATE TABLE `sales_details` (
-  `sales_detail_id` integer PRIMARY KEY AUTO_INCREMENT,
+  `id` integer,
   `sales_order_id` string,
   `product_id` string,
   `quantity` string,
   `product_sales_price` string,
   `total_price` string,
-  PRIMARY KEY (`sales_detail_id`, `sales_order_id`, `product_id`)
+  PRIMARY KEY (`id`, `sales_order_id`, `product_id`)
 );
 
-ALTER TABLE `sales_orders` ADD FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`);
+CREATE TABLE `bills` (
+  `id` integer PRIMARY KEY,
+  `sales_order_id` string UNIQUE,
+  `sales_order_details` json,
+  `customer_dni` string,
+  `customer_name` string,
+  `address` string,
+  `date_issue` datetime,
+  `igv` bool,
+  `currency` string,
+  `created_at` datetime,
+  `updated_at` datetime
+);
 
-ALTER TABLE `sales_orders` ADD FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`);
+ALTER TABLE `sales_orders` ADD FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`);
 
-ALTER TABLE `sales_details` ADD FOREIGN KEY (`sales_order_id`) REFERENCES `sales_orders` (`sales_order_id`);
+ALTER TABLE `sales_orders` ADD FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`);
 
-ALTER TABLE `sales_details` ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
+ALTER TABLE `sales_details` ADD FOREIGN KEY (`sales_order_id`) REFERENCES `sales_orders` (`id`);
+
+ALTER TABLE `sales_details` ADD FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+
+ALTER TABLE `bills` ADD FOREIGN KEY (`sales_order_id`) REFERENCES `sales_orders` (`id`);
