@@ -39,8 +39,8 @@ class Products
 
     //crear un nuevo producto   
     public function save($product)
-{
-    $sql = "INSERT INTO " . $this->table . " (code, name, source, brand, unit, category, price, stock, status) 
+    {
+        $sql = "INSERT INTO " . $this->table . " (code, name, source, brand, unit, category, price, stock, status) 
             VALUES ('" . $product['code'] . "', 
                     '" . $product['name'] . "', 
                     '" . $product['source'] . "', 
@@ -50,8 +50,8 @@ class Products
                     '" . $product['price'] . "', 
                     '" . $product['stock'] . "', 
                     '" . $product['status'] . "')";
-    $this->db->connect()->query($sql);
-}
+        $this->db->connect()->query($sql);
+    }
 
 
     public function codeExists($code)
@@ -67,7 +67,7 @@ class Products
     //actualizar un producto
     public function update($product)
     {
-        $sql = "UPDATE " . $this->table . " SET name = '" . $product['name'] . "', source = '" . $product['source'] . "', brand = '" . $product['brand'] . "', unit = '" . $product['unit'] . "', category = '" . $product['category'] . "', price = '" . $product['price'] . "', stock = '" . $product['stock']. "', status =  '". $product['status'] . "' WHERE code = '" . $product['code'] . "'";
+        $sql = "UPDATE " . $this->table . " SET name = '" . $product['name'] . "', source = '" . $product['source'] . "', brand = '" . $product['brand'] . "', unit = '" . $product['unit'] . "', category = '" . $product['category'] . "', price = '" . $product['price'] . "', stock = '" . $product['stock'] . "', status =  '" . $product['status'] . "' WHERE code = '" . $product['code'] . "'";
         $this->db->connect()->query($sql);
     }
     // Cambiar de estado
