@@ -1,48 +1,47 @@
-<!-- navbar.php -->
-<header class="bg-custom text-white py-3">
-<div class="container-fluid d-flex justify-content-between align-items-center">
-    <div class="logo font-weight-bold">
-        <img src="./assets/img/logo_white_small.png" alt="Logo" style="height: 40px;">
-    </div>
-    <nav class="navbar navbar-expand-lg">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown mx-3">
-                    <a class="nav-link text-white font-weight-bold dropdown-toggle" href="#" id="navbarVentas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Ventas
-                    </a>
-                    <ul class="dropdown-menu dropdown-custom" aria-labelledby="navbarVentas">
-                        <li><a class="dropdown-item" href="#">Submenu 1</a></li>
-                        <li><a class="dropdown-item" href="#">Submenu 2</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown mx-3">
-                    <a class="nav-link text-white font-weight-bold dropdown-toggle" href="#" id="navbarMantenimiento" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Mantenimiento
-                    </a>
-                    <ul class="dropdown-menu dropdown-custom" aria-labelledby="navbarMantenimiento">
-                        <li><a class="dropdown-item" href="#">Submenu 1</a></li>
-                        <li><a class="dropdown-item" href="#">Submenu 2</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown mx-3">
-                    <a class="nav-link text-white font-weight-bold dropdown-toggle" href="#" id="navbarReportes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Reportes
-                    </a>
-                    <ul class="dropdown-menu dropdown-custom" aria-labelledby="navbarReportes">
-                        <li><a class="dropdown-item" href="#">Submenu 1</a></li>
-                        <li><a class="dropdown-item" href="#">Submenu 2</a></li>
-                    </ul>
-                </li>
-            </ul>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/navbar.css"><!-- Enlace al archivo CSS externo -->
+    <title>Ejemplo de Navbar</title>
+</head>
+<body>
+    <nav class="navbar"><!-- Contenedor del Navbar -->
+        <div class="logo-container"><!-- Contenedor del logo -->
+            <img src="./assets/img/logo_white_small.png" alt="Logo" class="logo"><!-- Imagen del logo -->
+        </div>
+        <div class="menu-items"><!-- Contenedor de los elementos del menú -->
+            <div class="dropdown">
+                <a href="#" class="menu-link">Ventas ▼</a><!-- Ventas con flecha para dropdown -->
+                <div class="dropdown-content"><!-- Contenido del dropdown -->
+                    <a href="#">Subopción 1</a>
+                    <a href="#">Subopción 2</a>
+                    <a href="#">Subopción 3</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="menu-link">Mantenimiento ▼</a><!-- Mantenimiento con flecha para dropdown -->
+                <div class="dropdown-content"><!-- Contenido del dropdown -->
+                    <a href="#">Subopción 1</a>
+                    <a href="#">Subopción 2</a>
+                    <a href="#">Subopción 3</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="menu-link">Reportes ▼</a><!-- Reportes con flecha para dropdown -->
+                <div class="dropdown-content"><!-- Contenido del dropdown -->
+                    <a href="#">Subopción 1</a>
+                    <a href="#">Subopción 2</a>
+                    <a href="#">Subopción 3</a>
+                </div>
+            </div>
+        </div>
+        <div class="user-info"><!-- Contenedor de la información del usuario -->
+            <span class="username">$usuario</span><!-- Nombre del usuario -->
+            <img src="user-image.png" alt="Imagen del usuario" class="user-image"><!-- Imagen del usuario -->
         </div>
     </nav>
-    <div class="user-info font-weight-bold d-flex align-items-center">
-        Fredy Salinas
-        <img src="https://via.placeholder.com/30" alt="User" class="ms-2 rounded-circle">
-    </div>
-</div>
-</header>
+    <script src="./assets/js/navbar/navbar.js"></script><!-- Enlace al archivo JavaScript externo -->
+</body>
+</html>
