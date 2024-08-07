@@ -39,10 +39,20 @@ class Products
 
     //crear un nuevo producto   
     public function save($product)
-    {
-        $sql = "INSERT INTO " . $this->table . " (code, name, source, brand,unit,category,price,stock) VALUES ('" . $product['code'] . "', '" . $product['name'] . "', '" . $product['source'] . "', '" . $product['brand'] . "', '" . $product['unit'] . "', '" . $product['category'] . "', '" . $product['price'] . "', '" . $product['stock'] . "')";
-        $this->db->connect()->query($sql);
-    }
+{
+    $sql = "INSERT INTO " . $this->table . " (code, name, source, brand, unit, category, price, stock, status) 
+            VALUES ('" . $product['code'] . "', 
+                    '" . $product['name'] . "', 
+                    '" . $product['source'] . "', 
+                    '" . $product['brand'] . "', 
+                    '" . $product['unit'] . "', 
+                    '" . $product['category'] . "', 
+                    '" . $product['price'] . "', 
+                    '" . $product['stock'] . "', 
+                    '" . $product['status'] . "')";
+    $this->db->connect()->query($sql);
+}
+
 
     public function codeExists($code)
     {
@@ -67,5 +77,15 @@ class Products
         $stmt = $this->db->connect()->prepare($sql);
         $stmt->bind_param('s', $code);
         $stmt->execute();
+    }
+    //buscar por code
+    public function getByCode($code)
+    {
+        $sql = "SELECT * FROM " . $this->table . " WHERE code = ?";
+        $stmt = $this->db->connect()->prepare($sql);
+        $stmt->bind_param('s', $code);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
     }
 }

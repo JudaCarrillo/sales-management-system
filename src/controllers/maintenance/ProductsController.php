@@ -21,6 +21,8 @@ class ProductsController
             echo "Error: El producto con el código " . $product['code'] . " ya existe.";
             return;
         }
+        $statusValue =  !empty($product['status']) ? 1 : $product['status'];
+        $product['status'] = $statusValue;
         $this->db->save($product);
         header('Location:/src/views/Maintenance/Producto_view.php');
         exit();
@@ -51,6 +53,11 @@ class ProductsController
         $this->db->disable($code);
         header('Location:/src/views/Maintenance/Producto_view.php');
         exit();
+    }
+    //buscar registro por code
+    public function getByCode($code)
+    {
+        return $this->db->getByCode($code);
     }
 }
 
