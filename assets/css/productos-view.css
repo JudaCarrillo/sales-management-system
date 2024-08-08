@@ -204,11 +204,40 @@ body {
 @media (max-width: 750px) {
   .group input,
   .group select {
+    width: 77%;
+  }
+  .listado .caja {
+    padding: 15px 0px 10px 10px;
+    width: 88%;
+  }
+  .button-actions button {
+    width: 40%;
+  }
+  .actions button {
+    width: 77%;
+  }
+  .table-content {
     width: 100%;
+    overflow-x: auto;
+  }
+  .espacios .form {
+    width: 90%;
+  }
+  .table-content table {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .table-content table th,
+  .table-content table td {
+    white-space: nowrap;
   }
   .form .Parte1 {
     flex-direction: column;
     width: 100%;
+  }
+  .form {
+    width: 80%;
   }
   .form .Parte2 {
     grid-template-columns: 1fr;
