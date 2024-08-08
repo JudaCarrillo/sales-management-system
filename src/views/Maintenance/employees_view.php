@@ -90,7 +90,7 @@ $employees = $controller->get($where, $columns);
         <form action="" method="post">
 
             <section class="title">
-                <h1>Mantenimiento de empleados</h1>
+                <h1>Mantenimiento de Empleados</h1>
             </section>
 
             <?php if (isset($success)) : ?>
