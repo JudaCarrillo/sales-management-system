@@ -166,6 +166,33 @@ body {
   background-color: #f7f7f7;
 }
 
+input[type="checkbox"] {
+  width: 35px;
+  height: 20px;
+  appearance: none; /* Quitar el estilo predeterminado */
+  -webkit-appearance: none; /* Para compatibilidad con WebKit */
+  -moz-appearance: none; /* Para compatibilidad con Firefox */
+  background-color: transparent; /* Eliminar el fondo predeterminado */
+  border: none; /* Añadir un borde personalizado */
+  border-radius: 2rem; /* Bordes redondeados */
+  cursor: pointer;
+  background-color: #C1C1C1;
+
+}
+
+input[type="checkbox"]:checked {
+  background-color: #044643; /* Cambiar color de fondo cuando está seleccionado */
+  width: 35px;
+}
+
+input[type="checkbox"]:checked::before {
+  content: "✔"; /* Agregar un check */
+  display: block;
+  color: white;
+  text-align: center;
+  line-height: 0px;
+  font-size: 16px;
+}
 @media (max-width: 1100px) {
   .dividor {
     flex-direction: column;
@@ -198,6 +225,10 @@ body {
     gap: 20px;
     justify-content: center;
     width: 100%;
+  }
+  input[type="checkbox"] {
+    width: 35px;
+    height: 20px;
   }
 }
 
@@ -247,5 +278,9 @@ body {
   .separado {
     flex-direction: column;
     gap: 10px;
+  }
+  input[type="checkbox"] {
+    width: 35px;
+    height: 20px;
   }
 }
