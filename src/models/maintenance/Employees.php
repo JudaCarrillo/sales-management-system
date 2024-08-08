@@ -125,4 +125,19 @@ class Employees
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
+    public function login($user, $password)
+    {
+        $sql = "SELECT * FROM " . $this->table . " WHERE user = ?";
+        $stmt = $this->db->connect()->prepare($sql);
+        $stmt->bind_param('s', $user);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $employee = $result->fetch_assoc();
+
+        if ($employee && password_verify($password, $employee['password'])) {
+            return $employee;
+        } else {
+            return false;
+        }
+    }
 }

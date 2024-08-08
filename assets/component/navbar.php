@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -5,6 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/navbar.css"><!-- Enlace al archivo CSS externo -->
+    <link rel="stylesheet" href="/assets/css/drop-down.css">
     <title>Ejemplo de Navbar</title>
 </head>
 
@@ -42,9 +48,17 @@
                 </div>
             </div>
         </div>
-        <div class="user-info"><!-- Contenedor de la información del usuario -->
-            <span class="username">$usuario</span><!-- Nombre del usuario -->
-            <img src="/assets/img/user-image.png" alt="Imagen del usuario" class="user-image">
+        <div class="user-info">
+            <?php if (isset($_SESSION['user_name'])) : ?>
+                <span class="username"><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
+            <?php else : ?>
+                <span class="username">Invitado</span>
+            <?php endif; ?>
+            <img src="/assets/img/user-image.png" alt="Imagen del usuario" class="user-image" id="userImage">
+            <div class="dropdown-menu" id="dropdownMenu">
+                <a href="/src/controllers/auth/LogOut.php">Cerrar sesión</a>
+
+            </div>
         </div>
     </nav>
     <script src="/assets/js/navbar/navbar.js"></script><!-- Enlace al archivo JavaScript externo -->
