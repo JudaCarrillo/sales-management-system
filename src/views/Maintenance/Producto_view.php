@@ -162,7 +162,7 @@ $products = $controller->get($where, $columns);
                             <label for="search" class="search_label">Buscado por codigo</label>
                             <div class="search-img">
                                 <input type="text" name="search_code" id="search_code">
-                                <button name="action" value="Buscar Producto" style="border:none;background-color:transparent"> <a href=""><img src="../../../assets/img/lupa.png" alt=""></a></button> 
+                                <button name="action" value="Buscar Producto" style="border:none;background-color:transparent"> <a href=""><img src="../../../assets/img/lupa.png" alt=""></a></button>
                             </div>
                         </div>
                     </div>
