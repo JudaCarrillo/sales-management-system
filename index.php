@@ -1,4 +1,5 @@
 <?php
+
 require_once __DIR__ . '/src/controllers/auth/AuthController.php';
 
 $errorMessage = '';
