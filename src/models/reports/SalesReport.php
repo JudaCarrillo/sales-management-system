@@ -25,11 +25,10 @@ class SalesReport
     }
 
 
-    public function getAll($where)
+    public function getAll($where = '', $joins = '')
     {
-        $mainScript =  "SELECT so.code, c.name, so.date, so.currency, so.final_price FROM " . $this->table . " so INNER JOIN customers c"  . " ON so.customer_id = c.customer_id " . " WHERE " . $where;
+        $mainScript =  "SELECT so.code, c.name, so.date, so.currency, so.final_price FROM " . $this->table . " so" . $joins . " WHERE " . $where;
         $result = $this->db->connect()->query($mainScript);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
-
 }

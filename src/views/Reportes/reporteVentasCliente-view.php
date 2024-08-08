@@ -1,7 +1,25 @@
-
 <?php
 
 require_once __DIR__ . '../../../controllers/reports/SalesReportController.php';
+require_once __DIR__ . '../../../controllers/maintenance/CustomersController.php';
+
+$controller = new SalesReportController();
+$CustomerHandler = new CustomersController();
+
+$where = "";
+$columns = ['customer_id', 'code', 'name', 'dni'];
+$customers = $CustomerHandler->get($where, $columns);
+$result = [];
+
+if (isset($_POST['action'])) {
+
+    if ($_POST['action'] !== 'query') {
+        exit;
+    }
+
+    $customerId = $_POST['client'];
+    $result = $controller->getReportByCustomer($customerId);
+}
 
 ?>
 
@@ -29,14 +47,24 @@ require_once __DIR__ . '../../../controllers/reports/SalesReportController.php';
                         <div class="group">
                             <label for="cliente">Cliente</label>
                             <select name="client" id="client">
-                                <option value="s">s</option>
-                                <option value="s">s</option>
+                                <option value="">Seleccione un Cliente</option>
+                                <?php foreach ($customers as $customer) : ?>
+                                    <option value="<?php echo htmlspecialchars($customer['customer_id']); ?>">
+                                        <?php echo htmlspecialchars($customer['name'] . ' - ' . $customer['dni']); ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
+
                         </div>
                     </article>
                     <div class="button-actions">
-                        <button class="consultar">Consultar</button>
-                        <button class="imprimir">Imprimir</button>
+                        <button name="action" value="query" class="consultar">Consultar</button>
+                        <button type="button" class="imprimir" onclick="generatePDF(
+                                <?php echo htmlspecialchars(json_encode($result)); ?>, 
+                                'Reporte de Ventas por Cliente'
+                            )">
+                            Imprimir
+                        </button>
                     </div>
                 </form>
             </section>
@@ -53,43 +81,24 @@ require_once __DIR__ . '../../../controllers/reports/SalesReportController.php';
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
-                        <tr>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
-                        <tr>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>2</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>r</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
+                        <?php foreach ($result as $row) : ?>
+                            <tr>
+                                <td><?= htmlspecialchars($row['code']) ?></td>
+                                <td><?= htmlspecialchars($row['name']) ?></td>
+                                <td><?= htmlspecialchars($row['date']) ?></td>
+                                <td><?= htmlspecialchars($row['currency']) ?></td>
+                                <td><?= htmlspecialchars($row['final_price']) ?></td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </section>
         </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="../../../assets/js/reportes/generatePDF.js"></script>
+
 </body>
 
 </html>

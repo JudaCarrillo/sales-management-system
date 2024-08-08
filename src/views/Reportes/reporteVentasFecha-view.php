@@ -16,8 +16,6 @@ if (isset($_POST['action'])) {
         case 'query':
             $result = $controller->getReportByDateRange($fechaInicio, $fechaFin);
             break;
-        case 'print':
-            break;
         default:
             break;
     }
@@ -61,7 +59,7 @@ if (isset($_POST['action'])) {
                                 <?php echo htmlspecialchars(json_encode($result)); ?>, 
                                 'Reporte de Ventas'
                             )">
-                            Generate PDF
+                            Imprimir
                         </button>
 
                     </div>

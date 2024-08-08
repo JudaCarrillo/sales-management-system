@@ -5,17 +5,10 @@ require_once __DIR__ . '../../../models/reports/SalesReport.php';
 class SalesReportController
 {
 
-    private $SalesOrderDataHandler;
-    private $SalesOrderDetailsDataHandler;
-    private $CustomerDataHandler;
-    private $ProductDataHandler;
-
     private $DataHandler;
 
     public function __construct()
     {
-        // $this->SalesOrderDataHandler  = new SalesOrders();
-        // $this->SalesOrderDetailsDataHandler  = new SalesDetails();
         $this->DataHandler = new SalesReport();
     }
 
@@ -24,13 +17,19 @@ class SalesReportController
         $firstDate = new DateTime($firstDate);
         $lastDate = new DateTime($lastDate);
 
-        $where = "date BETWEEN '" . $firstDate->format('Y-m-d') . "' AND '" . $lastDate->format('Y-m-d') . "'";
-        $result = $this->DataHandler->getAll($where);
+        $where = " date BETWEEN '" . $firstDate->format('Y-m-d') . "' AND '" . $lastDate->format('Y-m-d') . "'";
+
+        $joins = " INNER JOIN customers c ON so.customer_id = c.customer_id";
+        $result = $this->DataHandler->getAll($where, $joins);
         return $result;
     }
 
-    public function getReportByClient($clientId)
+    public function getReportByCustomer($customerId)
     {
+        $where = "so.customer_id = '" . $customerId . "'";
+        $joins = " INNER JOIN customers c ON so.customer_id = c.customer_id";
+        $result = $this->DataHandler->getAll($where, $joins);
+        return $result;
     }
 
     public function getReportByProduct($productId)
