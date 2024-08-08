@@ -83,6 +83,9 @@ $products = $controller->get($where, $columns);
 </head>
 
 <body>
+
+    <?php include_once '../../../assets/component/navbar.php'; ?>
+
     <div class="container">
         <form action="" method="post">
 
