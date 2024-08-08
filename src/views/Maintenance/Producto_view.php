@@ -85,11 +85,9 @@ $products = $controller->get($where, $columns);
 <body>
     <div class="container">
         <form action="" method="post">
-
             <section class="title">
                 <h1>Mantenimiento de productos</h1>
-            </section>
-
+            </section
             <?php if (isset($success)) : ?>
                 <div class="success-message"><?= htmlspecialchars($success) ?></div>
             <?php endif; ?>
@@ -97,9 +95,7 @@ $products = $controller->get($where, $columns);
             <?php if (isset($error)) : ?>
                 <div class="error-message"><?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
-
             <div class="dividor">
-
                 <section class="form">
                     <h1>DETALLES DE PRODUCTO</h1>
                     <article class="Parte1">
