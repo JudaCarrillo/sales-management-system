@@ -216,7 +216,7 @@ $products = $controller->get($where, $columns);
                                 <select name="customer" id="customer">
                                     <option value="">Seleccione un cliente</option>
                                     <?php foreach ($customers as $customer) : ?>
-                                        <option value="<?php echo htmlspecialchars($customer['code']); ?>">
+                                        <option value="<?php echo htmlspecialchars($customer['code']); ?>" data-address="<?php echo htmlspecialchars($customer['address']); ?>" data-dni="<?php echo htmlspecialchars($customer['dni']); ?>">
                                             <?php echo htmlspecialchars($customer['code'] . ' - ' . $customer['business_name']); ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -227,8 +227,8 @@ $products = $controller->get($where, $columns);
                                 <input type="text" name="address" id="address">
                             </div>
                             <div class="group">
-                                <label for="ruc">RUC/DNI</label>
-                                <input type="text" name="ruc" id="ruc">
+                                <label for="dni">RUC/DNI</label>
+                                <input type="text" name="dni" id="dni">
                             </div>
                             <div class="group">
                                 <label for="moneda">Moneda de pago</label>
@@ -361,5 +361,23 @@ $products = $controller->get($where, $columns);
         </div>
     </div>
 </body>
+<script>
+document.getElementById('customer').addEventListener('change', function() {
+    var selectedOption = this.options[this.selectedIndex];
+    if (this.value === "") {
+        // Si se selecciona la opción por defecto, limpia todos los campos
+        document.getElementById('address').value = '';
+        document.getElementById('dni').value = '';
+        document.getElementById('currency').value = '';
+        document.getElementById('paymentType').value = '';
+    } else {
+        // Si se selecciona un cliente, llena los campos con la información correspondiente
+        document.getElementById('address').value = selectedOption.dataset.address || '';
+        document.getElementById('dni').value = selectedOption.dataset.dni || '';
+        document.getElementById('currency').value = 'PEN';
+        document.getElementById('paymentType').value = 'Efectivo';
+    }
+});
+</script>
 
 </html>
