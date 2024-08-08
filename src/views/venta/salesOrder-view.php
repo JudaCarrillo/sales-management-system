@@ -14,177 +14,6 @@ $columns = ['code', 'name', 'father_last_name', 'mother_last_name'];
 $employees = $employeesController->get($where, $columns);
 ?>
 
-<?php
-// Save Sales Details
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $salesOrderCode = htmlspecialchars($_POST['sales_order_code']);
-    $productId = htmlspecialchars($_POST['product_id']);
-    $productCode = htmlspecialchars($_POST['product_code']);
-    $quantity = htmlspecialchars($_POST['quantity']);
-    $unitPrice = htmlspecialchars($_POST['unit_price']);
-    $price = htmlspecialchars($_POST['price']);
-
-    $salesDetail = [
-        'productId' => $productId,
-        'productCode' => $productCode,
-        'quantity' => $quantity,
-        'unitPrice' => $unitPrice,
-        'price' => $price
-    ];
-
-    $filename = "sales_details_{$salesOrderCode}.json";
-
-    if (file_exists($filename)) {
-        $json = file_get_contents($filename);
-        $data = json_decode($json, true);
-    } else {
-        $data = [
-            'salesOrderCode' => $salesOrderCode,
-            'products' => []
-        ];
-    }
-
-    $data['products'][] = $salesDetail;
-
-    file_put_contents($filename, json_encode($data, JSON_PRETTY_PRINT));
-
-    echo "Detalle de venta guardado correctamente.";
-}
-?>
-
-<?php
-//Save Sales Order with Details
-require_once '../../models/sales/SalesOrders.php';
-require_once '../../models/sales/SalesDetails.php';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $salesOrderCode = htmlspecialchars($_POST['sales_order_code']);
-    $customerId = htmlspecialchars($_POST['customer_id']);
-    $employeeId = htmlspecialchars($_POST['employee_id']);
-    $customerDni = htmlspecialchars($_POST['customer_dni']);
-    $customerAddress = htmlspecialchars($_POST['customer_address']);
-    $payMethod = htmlspecialchars($_POST['pay_method']);
-    $currency = htmlspecialchars($_POST['currency']);
-    $branchOffice = htmlspecialchars($_POST['branch_office']);
-    $date = htmlspecialchars($_POST['date']);
-    $notes = htmlspecialchars($_POST['notes']);
-    $grossPrice = htmlspecialchars($_POST['gross_price']);
-    $discount = htmlspecialchars($_POST['discount']);
-    $netPrice = htmlspecialchars($_POST['net_price']);
-    $igv = htmlspecialchars($_POST['igv']);
-    $finalPrice = htmlspecialchars($_POST['final_price']);
-    $createdAt = date('Y-m-d H:i:s');
-    $updatedAt = date('Y-m-d H:i:s');
-
-    $salesOrder = new SalesOrders();
-    $salesOrderData = [
-        'code' => $salesOrderCode,
-        'customer_id' => $customerId,
-        'employee_id' => $employeeId,
-        'customer_dni' => $customerDni,
-        'customer_address' => $customerAddress,
-        'pay_method' => $payMethod,
-        'currency' => $currency,
-        'branch_office' => $branchOffice,
-        'date' => $date,
-        'notes' => $notes,
-        'gross_price' => $grossPrice,
-        'discount' => $discount,
-        'net_price' => $netPrice,
-        'igv' => $igv,
-        'final_price' => $finalPrice,
-        'created_at' => $createdAt,
-        'updated_at' => $updatedAt
-    ];
-
-    $salesOrderId = $salesOrder->save($salesOrderData);
-
-    $filename = "sales_details_{$salesOrderCode}.json";
-    if (file_exists($filename)) {
-        $json = file_get_contents($filename);
-        $data = json_decode($json, true);
-
-        $salesDetails = new SalesDetails();
-        foreach ($data['products'] as $product) {
-            $product['sales_order_id'] = $salesOrderId;
-            $salesDetails->save($product);
-        }
-
-        // Optionally, delete the JSON file after saving to the database
-        unlink($filename);
-
-        echo "Orden de venta y detalles guardados correctamente.";
-    } else {
-        echo "No se encontraron detalles de venta para la orden de venta.";
-    }
-}
-?>
-
-<?php
-require_once __DIR__ . '../../../controllers/ventas/salesOrdersController.php';
-require_once __DIR__ . '../../../controllers/ventas/salesDetailsController.php';
-require_once __DIR__ . '../../../controllers/maintenance/ProductsController.php';
-
-// Procesar la solicitud POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'] ?? null;
-    $code = $_POST['code'] ?? null;
-    $search_code = $_POST['search_code'] ?? null;
-
-    if ($action === 'Seleccionar Producto') {
-        if (!$search_code) {
-            $error = "Error: No ha seleccionado el Producto.";
-        } else {
-            $controller = new ProductsController();
-            $product = $controller->getByCode($search_code);
-            if (!$product) {
-                $error = "Error: Producto no encontrado.";
-            } elseif ($product['stock'] <= 0) {
-                $error = "Error: Producto sin stock.";
-            } else {
-                $_POST = $product;
-            }
-        }
-    } else {
-        if (!$action || !$code) {
-            $error = "Error: Faltan datos requeridos.";
-        } else {
-            $controller = new ProductsController();
-            $product = [
-                'code' => $_POST['code'],
-                'name' => $_POST['name'] ?? '',
-                'source' => $_POST['source'] ?? '',
-                'brand' => $_POST['brand'] ?? '',
-                'unit' => $_POST['unit'] ?? '',
-                'category' => $_POST['category'] ?? '',
-                'price' => $_POST['price'] ?? 0,
-                'stock' => $_POST['stock'] ?? 0,
-                'status' => $_POST['status'] ?? 0
-            ];
-
-            switch ($action) {
-                case 'Guardar Producto':
-                    $controller->save($product);
-                    $success = "Producto guardado exitosamente.";
-                    break;
-
-                default:
-                    $error = "Acción no válida.";
-                    break;
-            }
-        }
-    }
-}
-
-// Obtener la lista de productos
-$controller = new ProductsController();
-$columns = ['code', 'name', 'price',];
-$where = '';
-$products = $controller->get($where, $columns);
-?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -362,22 +191,45 @@ $products = $controller->get($where, $columns);
     </div>
 </body>
 <script>
-document.getElementById('customer').addEventListener('change', function() {
-    var selectedOption = this.options[this.selectedIndex];
-    if (this.value === "") {
-        // Si se selecciona la opción por defecto, limpia todos los campos
-        document.getElementById('address').value = '';
-        document.getElementById('dni').value = '';
-        document.getElementById('currency').value = '';
-        document.getElementById('paymentType').value = '';
-    } else {
-        // Si se selecciona un cliente, llena los campos con la información correspondiente
-        document.getElementById('address').value = selectedOption.dataset.address || '';
-        document.getElementById('dni').value = selectedOption.dataset.dni || '';
-        document.getElementById('currency').value = 'PEN';
-        document.getElementById('paymentType').value = 'Efectivo';
-    }
-});
+    document.addEventListener('DOMContentLoaded', function() {
+        var customerSelect = document.getElementById('customer');
+        if (customerSelect) {
+            customerSelect.addEventListener('change', function() {
+                var selectedOption = this.options[this.selectedIndex];
+                if (this.value === "") {
+                    // Si se selecciona la opción por defecto, limpia todos los campos
+                    document.getElementById('address').value = '';
+                    document.getElementById('dni').value = '';
+                    document.getElementById('currency').value = '';
+                    document.getElementById('paymentType').value = '';
+                } else {
+                    // Si se selecciona un cliente, llena los campos con la información correspondiente
+                    document.getElementById('address').value = selectedOption.dataset.address || '';
+                    document.getElementById('dni').value = selectedOption.dataset.dni || '';
+                    document.getElementById('currency').value = 'PEN';
+                    document.getElementById('paymentType').value = 'Efectivo';
+                }
+            });
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var employeeSelect = document.getElementById('employee');
+        if (employeeSelect) {
+            employeeSelect.addEventListener('change', function() {
+                var selectedOption = this.options[this.selectedIndex];
+                if (this.value === "") {
+                    // Si se selecciona la opción por defecto, limpia todos los campos
+                    document.getElementById('branch_office').value = '';
+                    document.getElementById('date').value = '';
+                } else {
+                    // Si se selecciona un empleado, llena los campos con la información correspondiente
+                    document.getElementById('branch_office').value = 'Lima';
+                    document.getElementById('date').value = new Date().toISOString().split('T')[0];
+                }
+            });
+        }
+    });
 </script>
 
 </html>
