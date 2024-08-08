@@ -1,3 +1,10 @@
+
+<?php
+
+require_once __DIR__ . '../../../controllers/reports/SalesReportController.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +24,7 @@
         </section>
         <div class="dividor">
             <section class="form">
-                <form action="../../../save_product.php" method="post">
+                <form action="" method="post">
                     <article class="Parte2">
                         <div class="group">
                             <label for="cliente">Cliente</label>
@@ -39,11 +46,10 @@
                     <thead>
                         <tr>
                             <th>Código</th>
-                            <th>Nombre</th>
-                            <th>Categoría</th>
-                            <th>Marca</th>
-                            <th>Stock</th>
-                            <th>Precio</th>
+                            <th>Cliente</th>
+                            <th>Fecha</th>
+                            <th>Divisa</th>
+                            <th>Importe Total</th>
                         </tr>
                     </thead>
                     <tbody>
