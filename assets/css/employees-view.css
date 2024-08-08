@@ -38,7 +38,16 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 40%;
+}
+.form .Parte1 {
+  display: flex;
+  flex-direction: row;
+  min-width: 200px;
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+  width: 420px;
+  gap: 20px;
+  border-bottom: 2px solid #5d5b5b;
 }
 .form .Parte2 {
   display: grid;
@@ -59,6 +68,7 @@ body {
   margin-bottom: 5px;
   color: #495464;
   font-weight: 600;
+
 }
 .group input,
 .group select {
@@ -155,6 +165,7 @@ body {
 .listado table th {
   background-color: #f7f7f7;
 }
+
 @media (max-width: 1100px) {
   .dividor {
     flex-direction: column;
@@ -193,11 +204,40 @@ body {
 @media (max-width: 750px) {
   .group input,
   .group select {
+    width: 77%;
+  }
+  .listado .caja {
+    padding: 15px 0px 10px 10px;
+    width: 88%;
+  }
+  .button-actions button {
+    width: 40%;
+  }
+  .actions button {
+    width: 77%;
+  }
+  .table-content {
     width: 100%;
+    overflow-x: auto;
+  }
+  .espacios .form {
+    width: 90%;
+  }
+  .table-content table {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .table-content table th,
+  .table-content table td {
+    white-space: nowrap;
   }
   .form .Parte1 {
     flex-direction: column;
     width: 100%;
+  }
+  .form {
+    width: 80%;
   }
   .form .Parte2 {
     grid-template-columns: 1fr;

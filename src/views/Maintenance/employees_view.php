@@ -147,18 +147,7 @@ $employees = $controller->get($where, $columns);
                             <input type="checkbox" id="status" name="status" <?= isset($_POST['status']) && $_POST['status'] === '1' ? 'checked' : '' ?>>
                         </div>
                     </article>
-                    <div class="separado">
-                        <div class="group">
-                            <label for="fecha_creacion">Fecha de Creación</label>
-                            <input type="date" name="fecha_creacion" id="fecha_creacion">
-                        </div>
-                        <div class="group">
-                            <label for="fecha_actualizacion">Fecha de Actualización</label>
-                            <input type="date" name="fecha_actualizacion" id="fecha_actualizacion">
-                        </div>
-                    </div>
                 </section>
-
                 <section class="listado">
                     <div class="caja">
                         <h1>LISTADO DE EMPLEADOS</h1>
@@ -175,29 +164,31 @@ $employees = $controller->get($where, $columns);
                         <button class="editar" name="action" value="Editar Empleado">Editar</button>
                         <button class="cancelar" name="action" value="Deshabilitar Empleado">Deshabilitar</button>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Código</th>
-                                <th>Nombre</th>
-                                <th>Apellido Paterno</th>
-                                <th>DNI</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($employees as $employee) : ?>
+                    <div class="table-content">
+                        <table>
+                            <thead>
                                 <tr>
-                                    <td><?= htmlspecialchars($employee['code']) ?></td>
-                                    <td><?= htmlspecialchars($employee['name']) ?></td>
-                                    <td><?= htmlspecialchars($employee['father_last_name']) ?></td>
-                                    <td><?= htmlspecialchars($employee['dni']) ?></td>
-
-                                    <td><?= htmlspecialchars($employee['status']) ?></td>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido Paterno</th>
+                                    <th>DNI</th>
+                                    <th>Estado</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($employees as $employee) : ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($employee['code']) ?></td>
+                                        <td><?= htmlspecialchars($employee['name']) ?></td>
+                                        <td><?= htmlspecialchars($employee['father_last_name']) ?></td>
+                                        <td><?= htmlspecialchars($employee['dni']) ?></td>
+
+                                        <td><?= htmlspecialchars($employee['status']) ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
             </div>
         </form>
