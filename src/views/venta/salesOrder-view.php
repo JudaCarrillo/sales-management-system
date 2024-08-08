@@ -9,6 +9,8 @@
 </head>
 
 <body>
+    <?php include_once '../../../assets/component/navbar.php'; ?>
+
     <div class="container">
         <section class="title">
             <h1>ORDEN DE VENTAS</h1>

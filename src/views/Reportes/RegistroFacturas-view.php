@@ -9,6 +9,8 @@
 </head>
 
 <body>
+    <?php include_once '../../../assets/component/navbar.php'; ?>
+
     <div class="container">
         <section class="title">
             <h1>REGISTRO DE FACTURAS</h1>
@@ -84,4 +86,5 @@
         </div>
     </div>
 </body>
+
 </html>

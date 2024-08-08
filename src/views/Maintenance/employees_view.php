@@ -83,6 +83,9 @@ $employees = $controller->get($where, $columns);
 </head>
 
 <body>
+    <?php include_once '../../../assets/component/navbar.php'; ?>
+
+
     <div class="container">
         <form action="" method="post">
 
@@ -145,15 +148,15 @@ $employees = $controller->get($where, $columns);
                         </div>
                     </article>
                     <div class="separado">
-                            <div class="group">
-                                <label for="fecha_creacion">Fecha de Creación</label>
-                                <input type="date" name="fecha_creacion" id="fecha_creacion">
-                            </div>
-                            <div class="group">
-                                <label for="fecha_actualizacion">Fecha de Actualización</label>
-                                <input type="date" name="fecha_actualizacion" id="fecha_actualizacion">
-                            </div>
+                        <div class="group">
+                            <label for="fecha_creacion">Fecha de Creación</label>
+                            <input type="date" name="fecha_creacion" id="fecha_creacion">
                         </div>
+                        <div class="group">
+                            <label for="fecha_actualizacion">Fecha de Actualización</label>
+                            <input type="date" name="fecha_actualizacion" id="fecha_actualizacion">
+                        </div>
+                    </div>
                 </section>
 
                 <section class="listado">
@@ -189,7 +192,7 @@ $employees = $controller->get($where, $columns);
                                     <td><?= htmlspecialchars($employee['name']) ?></td>
                                     <td><?= htmlspecialchars($employee['father_last_name']) ?></td>
                                     <td><?= htmlspecialchars($employee['dni']) ?></td>
-                                    
+
                                     <td><?= htmlspecialchars($employee['status']) ?></td>
                                 </tr>
                             <?php endforeach; ?>
