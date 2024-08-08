@@ -1,6 +1,6 @@
 <?php
 // SalesDetails model
-require_once '../../core/connection.php';
+require_once '../../../core/connection.php';
 class SalesDetails
 {
     private $db;

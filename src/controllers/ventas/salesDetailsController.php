@@ -1,6 +1,6 @@
 <?php
 // controllers/salesDetailsController.php
-require_once '../../models/sales/SalesDetails.php.php';
+require_once '../../models/sales/SalesDetails.php';
 
 class SalesDetailsController {
 
