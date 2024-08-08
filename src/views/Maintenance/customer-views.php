@@ -71,13 +71,17 @@ $customers = $controller->get($where, $columns);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../assets/css/customer-view.css">
     <title>Mantenimiento de Clientes</title>
 </head>
+
 <body>
+    <?php include_once '../../../assets/component/navbar.php'; ?>
+
     <div class="container">
         <form action="" method="post">
             <section class="title">
@@ -169,7 +173,7 @@ $customers = $controller->get($where, $columns);
                     </div>
                     <div class="actions">
                         <button class="nuevo" name="action" value="Guardar Cliente">Nuevo</button>
-                        
+
                         <button class="editar" name="action" value="Editar Cliente">Editar</button>
                         <button class="cancelar" name="action" value="Deshabilitar Cliente">Deshabilitar</button>
                     </div>
@@ -200,4 +204,5 @@ $customers = $controller->get($where, $columns);
         </form>
     </div>
 </body>
+
 </html>
