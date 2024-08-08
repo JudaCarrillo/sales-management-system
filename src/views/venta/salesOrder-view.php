@@ -12,6 +12,97 @@ $employeesController = new EmployeesController();
 $where = "";
 $columns = ['code', 'name', 'father_last_name', 'mother_last_name'];
 $employees = $employeesController->get($where, $columns);
+
+//Obtener la lista de Productos
+require_once '../../controllers/maintenance/ProductsController.php';
+$productsController = new ProductsController();
+$where = "";
+$columns = ['code', 'name', 'price', 'stock'];
+$products = $productsController->get($where, $columns);
+?>
+
+<?php
+/* require_once '../../controllers/maintenance/ProductsController.php';
+
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $producto_id = $_POST['producto'];
+    $quantity = $_POST['quantity'];
+    $price = $_POST['price'];
+
+    // Obtén los detalles del producto desde la base de datos
+    $producto = obtenerProductoPorId($producto_id); // Implementa esta función
+
+    $detalle = [
+        'producto_id' => $producto_id,
+        'nombre' => $producto['nombre'],
+        'cantidad' => $quantity,
+        'precio_unitario' => $price,
+        'total' => $quantity * $price
+    ];
+
+    if (!isset($_SESSION['detalles_venta'])) {
+        $_SESSION['detalles_venta'] = [];
+    }
+
+    $_SESSION['detalles_venta'][] = $detalle;
+
+    header('Location: pagina_orden_venta.php');
+    exit;
+} */
+?>
+
+<?php
+/* // Aquí va tu código existente
+
+// Muestra los detalles de la venta
+if (isset($_SESSION['detalles_venta']) && !empty($_SESSION['detalles_venta'])) {
+    echo '<table>';
+    echo '<thead><tr><th>Producto</th><th>Cantidad</th><th>Precio Unitario</th><th>Total</th></tr></thead>';
+    echo '<tbody>';
+    foreach ($_SESSION['detalles_venta'] as $detalle) {
+        echo '<tr>';
+        echo '<td>' . htmlspecialchars($detalle['nombre']) . '</td>';
+        echo '<td>' . htmlspecialchars($detalle['cantidad']) . '</td>';
+        echo '<td>' . htmlspecialchars($detalle['precio_unitario']) . '</td>';
+        echo '<td>' . htmlspecialchars($detalle['total']) . '</td>';
+        echo '</tr>';
+    }
+    echo '</tbody>';
+    echo '</table>';
+}
+
+// Formulario para guardar la orden completa
+echo '<form method="POST" action="guardar_orden.php">';
+echo '<button type="submit">Guardar Orden de Venta</button>';
+echo '</form>'; */
+?>
+
+<?php
+/* require_once '../../controllers/ventas/SalesDetailsController.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['detalles_venta'])) {
+    $salesDetailsController = new SalesDetailsController();
+
+    // Aquí deberías crear primero la orden de venta principal y obtener su ID
+
+    foreach ($_SESSION['detalles_venta'] as $detalle) {
+        $salesDetailsController->save([
+            'sales_order_id' => $orden_id, // ID de la orden principal
+            'product_id' => $detalle['producto_id'],
+            'quantity' => $detalle['cantidad'],
+            'product_sales_price' => $detalle['precio_unitario'],
+            'total_price' => $detalle['total']
+        ]);
+    }
+
+    // Limpia la sesión después de guardar
+    unset($_SESSION['detalles_venta']);
+
+    header('Location: pagina_orden_venta.php?success=1');
+    exit;
+} */
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +129,7 @@ $employees = $employeesController->get($where, $columns);
                 </div>
                 <section class="form">
                     <h1>DATOS DE CLIENTE</h1>
-                    <form action="../../../save_product.php" method="post">
+                    <form action="#" method="post">
                         <article class="Parte2">
                             <div class="group">
                                 <label for="cliente">Cliente</label>
@@ -106,31 +197,33 @@ $employees = $employeesController->get($where, $columns);
             <section class="listado">
                 <div class="caja">
                     <h1>DETALLES DE PRODUCTOS</h1>
-                    <div class="group">
-                        <label for="search" class="search_label">PRODUCTO</label>
-                        <div class="search-img">
-                            <select name="producto" id="">
-                                <option value="s">s</option>
-                                <option value="s">s</option>
-                                <option value="s">s</option>
+                    <form id="productForm" onsubmit="return false;">
+                        <div class="group">
+                            <label for="producto">PRODUCTO</label>
+                            <select name="product" id="product">
+                                <option value="">Seleccione un producto</option>
+                                <?php foreach ($products as $product) : ?>
+                                    <option value="<?php echo htmlspecialchars($product['code']); ?>" data-price="<?php echo htmlspecialchars($product['price']); ?>" data-stock="<?php echo htmlspecialchars($product['stock']); ?>">
+                                        <?php echo htmlspecialchars($product['code'] . ' - ' . $product['name']); ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
-                            <button class="agregar">Agregar</button>
+                            <button type="button" class="agregar" onclick="addProduct()">Agregar</button>
                         </div>
-                    </div>
-                    <div class="grupo-producto">
-                        <div class="group">
-                            <label for="cantidad">Cantidad</label>
-                            <input type="number" name="quantity" id="quantity">
-                        </div>
-                        <div class="group">
-                            <label for="p.unitario">P. Unitario</label>
-                            <input type="number" name="price" id="price">
-                        </div>
-                        <div class="group">
-                            <label for="stock">Stock</label>
-                            <input type="number" name="stock" id="stock">
-                        </div>
-                    </div>
+                        <div class="grupo-producto">
+                            <div class="group">
+                                <label for="cantidad">Cantidad</label>
+                                <input type="number" name="quantity" id="quantity" required>
+                            </div>
+                            <div class="group">
+                                <label for="price">P. Unitario</label>
+                                <input type="number" name="price" id="price" required>
+                            </div>
+                            <div class="group">
+                                <label for="stock">Stock</label>
+                                <input type="number" name="stock" id="stock">
+                            </div>
+                    </form>
                 </div>
 
                 <div class="actions">
@@ -138,59 +231,40 @@ $employees = $employeesController->get($where, $columns);
                     <button class="editar">Editar</button>
                     <button class="cancelar">Cancelar</button>
                 </div>
-                <table>
+                <table id="productTable">
                     <thead>
                         <tr>
                             <th>Código</th>
                             <th>Nombre</th>
-                            <th>Categoría</th>
-                            <th>Marca</th>
-                            <th>Stock</th>
-                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php
-                        ?>
-                        <tr>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
-                        <tr>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
-                        <tr>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>2</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>r</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
+                    <tbody id="productTableBody">
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">Total Neto</td>
+                            <td id="totalNeto">0.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">IGV (18%)</td>
+                            <td id="igv">0.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">Total Final</td>
+                            <td id="totalFinal">0.00</td>
+                        </tr>
+                    </tfoot>
                 </table>
+
             </section>
         </div>
     </div>
 </body>
 <script>
+    //Autorellenar formulario Cliente
     document.addEventListener('DOMContentLoaded', function() {
         var customerSelect = document.getElementById('customer');
         if (customerSelect) {
@@ -212,7 +286,7 @@ $employees = $employeesController->get($where, $columns);
             });
         }
     });
-
+    //Autorellenar formulario Vendedor
     document.addEventListener('DOMContentLoaded', function() {
         var employeeSelect = document.getElementById('employee');
         if (employeeSelect) {
@@ -230,6 +304,87 @@ $employees = $employeesController->get($where, $columns);
             });
         }
     });
+    //Autorellenar formulario Producto
+    document.addEventListener('DOMContentLoaded', function() {
+        var productSelect = document.getElementById('product');
+        if (productSelect) {
+            productSelect.addEventListener('change', function() {
+                var selectedOption = this.options[this.selectedIndex];
+                if (this.value === "") {
+                    // Si se selecciona la opción por defecto, limpia todos los campos
+                    document.getElementById('quantity').value = '';
+                    document.getElementById('price').value = '';
+                    document.getElementById('stock').value = '';
+                } else {
+                    // Si se selecciona un producto, llena los campos con la información correspondiente
+                    document.getElementById('quantity').value = '';
+                    document.getElementById('stock').value = selectedOption.dataset.stock || '';
+                    document.getElementById('price').value = selectedOption.dataset.price || '';
+                }
+            });
+        }
+    });
+
+    let products = [];
+
+function addProduct() {
+    const productSelect = document.getElementById('product');
+    const quantity = document.getElementById('quantity').value;
+    const price = document.getElementById('price').value;
+
+    if (!productSelect.value || !quantity || !price) {
+        alert('Por favor, complete todos los campos del producto');
+        return;
+    }
+
+    const selectedOption = productSelect.options[productSelect.selectedIndex];
+    const product = {
+        code: productSelect.value,
+        name: selectedOption.text,
+        quantity: parseFloat(quantity),
+        price: parseFloat(price),
+        total: parseFloat(quantity) * parseFloat(price)
+    };
+
+    products.push(product);
+    updateProductTable();
+    calculateTotals();
+    clearProductForm();
+}
+
+function updateProductTable() {
+    const tbody = document.getElementById('productTableBody');
+    tbody.innerHTML = '';
+
+    products.forEach(product => {
+        const row = tbody.insertRow();
+        row.innerHTML = `
+            <td>${product.code}</td>
+            <td>${product.name}</td>
+            <td>${product.quantity}</td>
+            <td>${product.price.toFixed(2)}</td>
+            <td>${product.total.toFixed(2)}</td>
+        `;
+    });
+}
+
+function calculateTotals() {
+    const totalNeto = products.reduce((sum, product) => sum + product.total, 0);
+    const igv = totalNeto * 0.18;
+    const totalFinal = totalNeto + igv;
+
+    document.getElementById('totalNeto').textContent = totalNeto.toFixed(2);
+    document.getElementById('igv').textContent = igv.toFixed(2);
+    document.getElementById('totalFinal').textContent = totalFinal.toFixed(2);
+}
+
+function clearProductForm() {
+    document.getElementById('product').value = '';
+    document.getElementById('quantity').value = '';
+    document.getElementById('price').value = '';
+    document.getElementById('stock').value = '';
+}
+
 </script>
 
 </html>
