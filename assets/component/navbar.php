@@ -27,7 +27,7 @@ session_start();
                 <div class="dropdown-content">
                     <a href="/src/views/venta/salesOrder-view.php">Orden de Venta</a>
                     <a href="/src/views/venta/facturacion-view.php">Factura</a>
-                    <a href="#">Estado de Cuenta</a>
+                    <a href="/src/views/venta/acountStatus-view.php">Estado de Cuenta</a>
                 </div>
             </div>
             <div class="dropdown">

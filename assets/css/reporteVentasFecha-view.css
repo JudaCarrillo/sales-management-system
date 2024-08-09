@@ -237,6 +237,7 @@ body {
   .button-actions button {
     width: 40%;
   }
+
   .listado {
     width: 100%;
     overflow-x: auto;
@@ -249,6 +250,6 @@ body {
 
   .listado table th,
   .listado table td {
-    white-space: nowrap;
-}
+    white-space: nowrap;
+  }
 }
