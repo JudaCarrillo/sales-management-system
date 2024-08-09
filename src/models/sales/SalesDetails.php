@@ -72,7 +72,7 @@ class SalesDetails
     // Get a sales detail by id
     public function getById($id)
     {
-        $sql = "SELECT * FROM " . $this->table . " WHERE id = " . $id;
+        $sql = "SELECT * FROM " . $this->table . " WHERE sales_detail_id = " . $id;
         $result = $this->db->connect()->query($sql);
         return $result->fetch_assoc();
     }

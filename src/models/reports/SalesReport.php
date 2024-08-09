@@ -31,4 +31,17 @@ class SalesReport
         $result = $this->db->connect()->query($mainScript);
         return $result->fetch_all(MYSQLI_ASSOC);
     }
+
+
+    public function getByProductId($productId)
+    {
+        $sql = "SELECT so.code, c.name, so.date, so.currency, so.final_price 
+        FROM " . $this->table . " so 
+        INNER JOIN customers c ON so.customer_id = c.customer_id 
+        INNER JOIN sales_details sd ON sd.sales_order_id = so.sales_order_id
+        WHERE sd.product_id = " . $productId;
+
+        $result = $this->db->connect()->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }

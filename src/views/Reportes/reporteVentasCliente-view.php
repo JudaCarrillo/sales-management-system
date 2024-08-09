@@ -50,7 +50,7 @@ if (isset($_POST['action'])) {
                                 <option value="">Seleccione un Cliente</option>
                                 <?php foreach ($customers as $customer) : ?>
                                     <option value="<?php echo htmlspecialchars($customer['customer_id']); ?>">
-                                        <?php echo htmlspecialchars($customer['name'] . ' - ' . $customer['dni']); ?>
+                                        <?php echo htmlspecialchars($customer['dni'] . ' - ' . $customer['name']); ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>

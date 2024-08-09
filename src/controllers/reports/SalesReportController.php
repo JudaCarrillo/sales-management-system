@@ -34,5 +34,11 @@ class SalesReportController
 
     public function getReportByProduct($productId)
     {
+        if (empty($productId)) {
+            return [];
+        }
+
+        $result = $this->DataHandler->getByProductId($productId);
+        return $result;
     }
 }
