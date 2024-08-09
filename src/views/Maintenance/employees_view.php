@@ -144,7 +144,7 @@ $employees = $controller->get($where, $columns);
                         </div>
                         <div class="group">
                             <label for="estatus">Estado:</label>
-                            <input type="checkbox" id="status" name="status" <?= isset($_POST['status']) && $_POST['status'] === '1' ? 'checked' : '' ?>>
+                            <input type="checkbox" id="status" name="status" <?= $_POST['status'] == 1 ? 'checked' : '' ?>>
                         </div>
                     </article>
                 </section>
@@ -172,7 +172,6 @@ $employees = $controller->get($where, $columns);
                                     <th>Nombre</th>
                                     <th>Apellido Paterno</th>
                                     <th>DNI</th>
-                                    <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -182,8 +181,6 @@ $employees = $controller->get($where, $columns);
                                         <td><?= htmlspecialchars($employee['name']) ?></td>
                                         <td><?= htmlspecialchars($employee['father_last_name']) ?></td>
                                         <td><?= htmlspecialchars($employee['dni']) ?></td>
-
-                                        <td><?= htmlspecialchars($employee['status']) ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>

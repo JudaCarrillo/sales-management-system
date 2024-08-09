@@ -87,19 +87,16 @@ class Employees
     // Actualizar un empleado
     public function update($employee)
     {
-        $hashedPassword = password_hash($employee['password'], PASSWORD_DEFAULT);
-
-        $sql = "UPDATE " . $this->table . " SET name = ?, father_last_name = ?, mother_last_name = ?, address = ?, phone = ?, user = ?, password = ?, status = ? WHERE dni = ?";
+        $sql = "UPDATE " . $this->table . " SET name = ?, father_last_name = ?, mother_last_name = ?, address = ?, phone = ?, user = ?, status = ? WHERE dni = ?";
         $stmt = $this->db->connect()->prepare($sql);
         $stmt->bind_param(
-            'sssssssss',
+            'ssssssss',
             $employee['name'],
             $employee['father_last_name'],
             $employee['mother_last_name'],
             $employee['address'],
             $employee['phone'],
             $employee['user'],
-            $hashedPassword,
             $employee['status'],
             $employee['dni']
         );
@@ -109,7 +106,7 @@ class Employees
     // Cambiar el estado
     public function disable($dni)
     {
-        $sql = "UPDATE " . $this->table . " SET status = '0' WHERE dni = ?";
+        $sql = "UPDATE " . $this->table . " SET status = '0' WHERE code = ?";
         $stmt = $this->db->connect()->prepare($sql);
         $stmt->bind_param('s', $dni);
         $stmt->execute();

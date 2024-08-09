@@ -1,10 +1,10 @@
 <?php
-// SalesDetails model
+// Bills model
 require_once __DIR__ . '/../../../core/connection.php';
-class SalesDetails
+class Bills
 {
     private $db;
-    private $table = "sales_details";
+    private $table = "bills";
 
     public function __construct()
     {
@@ -12,7 +12,7 @@ class SalesDetails
         $this->db = $database->connect();
     }
 
-    // List all sales details
+    // List all bills
     public function getAll($columns = '*', $where = '')
     {
         $selectScript = $this->buildSelect($columns);
@@ -28,7 +28,6 @@ class SalesDetails
         }
         return "SELECT *";
     }
-
     private function buildWhere($where)
     {
         if (!empty($where)) {
@@ -37,68 +36,65 @@ class SalesDetails
         return "";
     }
 
-    // Save a new sales detail
+    // Save a new bill
     public function save($data)
     {
         $sql = "INSERT INTO " . $this->table .
-            " (sales_order_id, product_id, quantity, product_sales_price, total_price) 
+            " (sales_order_id, customer_dni, customer_name, address, date_issue, igv, final_price, currency, created_at, updated_at)
         VALUES (
-        '" . $data['sales_order_id'] . "', 
-        '" . $data['product_id'] . "', 
-        '" . $data['quantity'] . "', 
-        '" . $data['product_sales_price'] . "', 
-        '" . $data['total_price'] . "'
+        '" . $data['sales_order_id'] . "',
+        '" . $data['customer_dni'] . "',
+        '" . $data['customer_name'] . "',
+        '" . $data['address'] . "',
+        '" . $data['date_issue'] . "',
+        '" . $data['igv'] . "',
+        '" . $data['final_price'] . "',
+        '" . $data['currency'] . "',
+        '" . $data['created_at'] . "',
+        '" . $data['updated_at'] . "'
         )";
         $this->db->query($sql);
         return $this->db->insert_id;
     }
 
-    // Check if a sales detail code exists
-    public function detailExists($salesOrderId, $product_id)
+    public function detailExists($sales_order_id)
     {
         $sql = "SELECT COUNT(*) AS count FROM " . $this->table . " WHERE 
-        sales_order_id = '" . $salesOrderId . "' AND 
-        product_id = '" . $product_id . "'";
+        sales_order_id = '" . $sales_order_id . "'";
         $result = $this->db->query($sql);
         $row = $result->fetch_assoc();
         return $row['count'] > 0;
     }
 
-    // Update a sales detail
+    // Update a bill
     public function update($data)
     {
         $sql = "UPDATE " . $this->table . " SET 
         sales_order_id = '" . $data['sales_order_id'] . "',
-        product_id = '" . $data['product_id'] . "',
-        quantity = '" . $data['quantity'] . "',
-        product_sales_price = '" . $data['product_sales_price'] . "',
-        total_price = '" . $data['total_price'] . "'
-        WHERE sales_detail_id = " . $data['sales_detail_id'];
+        customer_dni = '" . $data['customer_dni'] . "',
+        customer_name = '" . $data['customer_name'] . "',
+        address = '" . $data['address'] . "',
+        date_issue = '" . $data['date_issue'] . "',
+        igv = '" . $data['igv'] . "',
+        currency = '" . $data['currency'] . "',
+        updated_at = '" . $data['updated_at'] . "'
+        WHERE id = " . $data['id'];
         $this->db->query($sql);
         return $this->db->affected_rows;
     }
 
-    // Delete a sales detail
+    // Delete a bill
     public function delete($id)
     {
-        $sql = "DELETE FROM " . $this->table . " WHERE sales_detail_id = " . $id;
+        $sql = "DELETE FROM " . $this->table . " WHERE bills_id = " . $id;
         $this->db->query($sql);
         return $this->db->affected_rows;
     }
 
-    // Get sales details by sales order id
-    public function getBySalesOrderId($salesOrderId)
-    {
-        $sql = "SELECT * FROM " . $this->table . " WHERE sales_order_id = " . $salesOrderId;
-        $result = $this->db->query($sql);
-        return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-
-    // Get a sales detail by id
+    // Get a bill by id
     public function getById($id)
     {
-        $sql = "SELECT * FROM " . $this->table . " WHERE sales_detail_id = " . $id;
+        $sql = "SELECT * FROM " . $this->table . " WHERE bills_id = " . $id;
         $result = $this->db->query($sql);
         return $result->fetch_assoc();
     }

@@ -138,7 +138,7 @@ $products = $controller->get($where, $columns);
                         </div>
                         <div class="group">
                             <label for="status">Estado:</label>
-                            <input type="checkbox" id="status" name="status" <?= isset($_POST['status']) ? 'checked' : '' ?>>
+                            <input type="checkbox" id="status" name="status" <?= $_POST['status'] == 1 ? 'checked' : '' ?>>
                         </div>
                     </article>
                 </section>

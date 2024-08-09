@@ -1,36 +1,34 @@
 <?php
-// controllers/ClienteController.php
-require_once '../../models/sales/SalesDetails.php.php';
+// controllers/salesDetailsController.php
+require_once __DIR__ . '/../../models/sales/SalesOrders.php';
+require_once __DIR__ . '/../../models/sales/SalesDetails.php';
+require_once __DIR__ . '/../../models/maintenance/Products.php';
 
 class SalesDetailsController {
 
-    public function index() {
-        $salesOrder = new SalesDetails();
-        $salesOrders = $salesOrder->getAll();
-        require_once '../../api.php';
+    private $db;
+    private $model;
+    public function __construct() {
+        $this->model = new SalesOrders();
     }
-    // Save a new sales order
-    /* 
-    sales_detail_id INT AUTO_INCREMENT,
-    sales_order_id INT,
-    product_id INT,
-    quantity INT,
-    product_sales_price DECIMAL(10, 2),
-    total_price DECIMAL(10, 2),
-    */
-    public function save() {
-        $salesOrder = new SalesDetails();
-        $data = [
-            'sales_detail_id' => $_POST['sales_detail_id'],
-            'sales_order_id' => $_POST['sales_order_id'],
-            'product_id' => $_POST['product_id'],
-            'quantity' => $_POST['quantity'],
-            'product_sales_price' => $_POST['product_sales_price'],
-            'total_price' => $_POST['total_price']
-        ];
-        $salesOrder->save($data);
-        header('Location: api.php');
+    public function index() {
+        $orders = $this->model->getAll();
+        return $orders;
     }
 
+    public function get($where = '', $columns = '*')
+    {
+        return $this->db->getAll($columns, $where);
+    }
+    // Save a new sales detail
+    public function save($detail)
+    {
+        if ($this->db->detailExists($detail['salesOrderId'], $detail['productId'])) {
+            echo "Error: Ya registró el producto al Detalle de Venta con el código " . $detail['salesOrderId'];
+            return;
+
+        }
+        $this->db->save($detail);
+    }
     // Otros métodos como create(), store(), edit(), update(), delete() pueden ser añadidos aquí
 }

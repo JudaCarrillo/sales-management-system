@@ -84,14 +84,46 @@ body {
   color: #495464;
   font-weight: 600;
 }
-.group input,
-.group select {
+.group input {
   width: 90%;
   padding: 10px;
   background: #c1c1c1;
   border-radius: 5px;
   border: none;
 }
+.group select {
+  width: 100%;
+  padding: 10px;
+  background: #c1c1c1;
+  border-radius: 5px;
+  border: none;
+}
+
+.product {
+  flex: 1;
+  min-width: 200px;
+}
+.product label {
+  display: block;
+  margin-bottom: 5px;
+  color: #495464;
+  font-weight: 600;
+}
+.product input {
+  width: 70%;
+  padding: 10px;
+  background: #c1c1c1;
+  border-radius: 5px;
+  border: none;
+}
+.product select {
+  width: 70%;
+  padding: 10px;
+  background: #c1c1c1;
+  border-radius: 5px;
+  border: none;
+}
+
 .espacios {
   gap: 20px;
   display: flex;
@@ -128,6 +160,8 @@ body {
 .grupo-producto {
   display: flex;
   flex-direction: row;
+  gap: 10px;
+  margin: 1rem 0;
 }
 .actions {
   display: flex;

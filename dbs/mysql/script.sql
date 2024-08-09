@@ -59,8 +59,6 @@ CREATE TABLE `sales_orders` (
   `date` datetime,
   `notes` string,
   `gross_price` string,
-  `discount` string,
-  `net_price` string,
   `igv` string,
   `final_price` string,
   `created_at` datetime,
@@ -86,6 +84,7 @@ CREATE TABLE `bills` (
   `address` string,
   `date_issue` datetime,
   `igv` bool,
+  `final_price` integer,
   `currency` string,
   `created_at` datetime,
   `updated_at` datetime
