@@ -10,8 +10,9 @@ $datahandler = new Employees();
 
 $user = "admin";
 $password = "hola";
-$result = $datahandler->getAll();
-echo json_encode($result);
+$result = $controller->login($user, $password);
+// $result = $datahandler->getAll();
+// echo json_encode($result);
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

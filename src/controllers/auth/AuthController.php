@@ -17,16 +17,20 @@ class AuthController
         $password = htmlspecialchars(trim($password));
 
         $userData = $this->db->login($user, $password);
-        if ($userData) {
-            // Iniciar sesión y almacenar los datos del usuario
-            session_start();
-            $_SESSION['user_id'] = $userData['id'];
-            $_SESSION['user_name'] = $userData['name'];
-
-            // Redirigir a la página de inicio o al dashboard
-            header('Location: /home.php');
-            exit();
+        if (!$userData) {
+            return false;
         } 
+
+        echo $userData['id'];
+        echo $userData['name'];
+
+        // session_start();
+        // $_SESSION['user_id'] = $userData['id'];
+        // $_SESSION['user_name'] = $userData['name'];
+
+        // Redirigir a la página de inicio o al dashboard
+        // header('Location: /home.php');
+        exit();
     }
 
     public function logout()
