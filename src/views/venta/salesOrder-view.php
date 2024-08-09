@@ -21,92 +21,6 @@ $columns = ['product_id', 'code', 'name', 'price', 'stock'];
 $products = $productsController->get($where, $columns);
 ?>
 
-
-
-<?php
-/* require_once '../../controllers/maintenance/ProductsController.php';
-
-session_start();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $producto_id = $_POST['producto'];
-    $quantity = $_POST['quantity'];
-    $price = $_POST['price'];
-
-    // Obtén los detalles del producto desde la base de datos
-    $producto = obtenerProductoPorId($producto_id); // Implementa esta función
-
-    $detalle = [
-        'producto_id' => $producto_id,
-        'nombre' => $producto['nombre'],
-        'cantidad' => $quantity,
-        'precio_unitario' => $price,
-        'total' => $quantity * $price
-    ];
-
-    if (!isset($_SESSION['detalles_venta'])) {
-        $_SESSION['detalles_venta'] = [];
-    }
-
-    $_SESSION['detalles_venta'][] = $detalle;
-
-    header('Location: pagina_orden_venta.php');
-    exit;
-} */
-?>
-
-<?php
-/* // Aquí va tu código existente
-
-// Muestra los detalles de la venta
-if (isset($_SESSION['detalles_venta']) && !empty($_SESSION['detalles_venta'])) {
-    echo '<table>';
-    echo '<thead><tr><th>Producto</th><th>Cantidad</th><th>Precio Unitario</th><th>Total</th></tr></thead>';
-    echo '<tbody>';
-    foreach ($_SESSION['detalles_venta'] as $detalle) {
-        echo '<tr>';
-        echo '<td>' . htmlspecialchars($detalle['nombre']) . '</td>';
-        echo '<td>' . htmlspecialchars($detalle['cantidad']) . '</td>';
-        echo '<td>' . htmlspecialchars($detalle['precio_unitario']) . '</td>';
-        echo '<td>' . htmlspecialchars($detalle['total']) . '</td>';
-        echo '</tr>';
-    }
-    echo '</tbody>';
-    echo '</table>';
-}
-
-// Formulario para guardar la orden completa
-echo '<form method="POST" action="guardar_orden.php">';
-echo '<button type="submit">Guardar Orden de Venta</button>';
-echo '</form>'; */
-?>
-
-<?php
-/* require_once '../../controllers/ventas/SalesDetailsController.php';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['detalles_venta'])) {
-    $salesDetailsController = new SalesDetailsController();
-
-    // Aquí deberías crear primero la orden de venta principal y obtener su ID
-
-    foreach ($_SESSION['detalles_venta'] as $detalle) {
-        $salesDetailsController->save([
-            'sales_order_id' => $orden_id, // ID de la orden principal
-            'product_id' => $detalle['producto_id'],
-            'quantity' => $detalle['cantidad'],
-            'product_sales_price' => $detalle['precio_unitario'],
-            'total_price' => $detalle['total']
-        ]);
-    }
-
-    // Limpia la sesión después de guardar
-    unset($_SESSION['detalles_venta']);
-
-    header('Location: pagina_orden_venta.php?success=1');
-    exit;
-} */
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -234,12 +148,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['detalles_venta']))
                 </div>
 
                 <div class="actions">
-                    <button class="nuevo">Nuevo</button>
+                    <button class="nuevo" onclick="saveOrder()">Nuevo</button>
                     <button class="editar">Editar</button>
                     <button class="cancelar">Cancelar</button>
-                    <button class="guardar" onclick="saveOrder()">Guardar Orden</button>
                 </div>
-
+                
                 <table id="productTable">
                     <thead>
                         <tr>

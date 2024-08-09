@@ -1,3 +1,13 @@
+<?php
+//Obtener la lista de Clientes
+require_once '../../controllers/ventas/salesOrdersController.php';
+$orderController = new SalesOrdersController();
+$where = "";
+$columns = ['customer_dni', 'customer_address', 'branch_office', 'currency', 'pay_method', 'date'];
+$orders = $orderController->get($columns, $where);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,17 +25,20 @@
         </section>
         <div class="dividor">
             <div class="espacios">
+
                 <div class="parteCode">
                     <div class="group">
                         <input class="code" type="text" name="code" id="code">
                     </div>
                 </div>
+
                 <section class="form">
                     <h1>DATOS DE VENTA</h1>
                     <form action="../../../save_product.php" method="post">
                         <article class="Parte2">
                             <div class="group">
                                 <label for="orden">Orden de Venta</label>
+
                                 <select name="order" id="order">
                                     <option value="s">s</option>
                                     <option value="s">s</option>
@@ -63,7 +76,7 @@
                         </article>
                     </form>
                 </section>
-                
+
             </div>
             <section class="listado">
 
@@ -72,52 +85,35 @@
                     <button class="editar">Editar</button>
                     <button class="cancelar">Cancelar</button>
                 </div>
-                <table>
+
+                <table id="productTable">
                     <thead>
                         <tr>
                             <th>Código</th>
                             <th>Nombre</th>
-                            <th>Categoría</th>
-                            <th>Marca</th>
-                            <th>Stock</th>
-                            <th>Precio</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
-                        <tr>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
-                        <tr>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>2</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>r</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
+                    <tbody id="productTableBody">
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">Total Neto</td>
+                            <td id="totalNeto">0.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">IGV (18%)</td>
+                            <td id="igv">0.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">Total Final</td>
+                            <td id="totalFinal">0.00</td>
+                        </tr>
+                    </tfoot>
                 </table>
+
             </section>
         </div>
     </div>

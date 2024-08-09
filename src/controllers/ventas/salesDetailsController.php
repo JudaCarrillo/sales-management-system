@@ -1,6 +1,8 @@
 <?php
 // controllers/salesDetailsController.php
+require_once __DIR__ . '/../../models/sales/SalesOrders.php';
 require_once __DIR__ . '/../../models/sales/SalesDetails.php';
+require_once __DIR__ . '/../../models/maintenance/Products.php';
 
 class SalesDetailsController {
 
@@ -19,14 +21,6 @@ class SalesDetailsController {
         return $this->db->getAll($columns, $where);
     }
     // Save a new sales detail
-    /* 
-    sales_detail_id INT AUTO_INCREMENT,
-    sales_order_id INT,
-    product_id INT,
-    quantity INT,
-    product_sales_price DECIMAL(10, 2),
-    total_price DECIMAL(10, 2),
-    */
     public function save($detail)
     {
         if ($this->db->detailExists($detail['salesOrderId'], $detail['productId'])) {
@@ -36,6 +30,5 @@ class SalesDetailsController {
         }
         $this->db->save($detail);
     }
-
     // Otros métodos como create(), store(), edit(), update(), delete() pueden ser añadidos aquí
 }
