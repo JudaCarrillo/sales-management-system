@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . '../../../controllers/ventas/AccountStatusController.php';
 
 $controller = new AccountStatusController();

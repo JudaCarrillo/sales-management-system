@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once __DIR__ . '../../../controllers/reports/SalesReportController.php';
 require_once __DIR__ . '../../../controllers/maintenance/CustomersController.php';
 

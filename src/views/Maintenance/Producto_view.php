@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . '../../../controllers/maintenance/ProductsController.php';
 
 // Procesar la solicitud POST
@@ -138,7 +139,7 @@ $products = $controller->get($where, $columns);
                         </div>
                         <div class="group">
                             <label for="status">Estado:</label>
-                            <input type="checkbox" id="status" name="status" <?= $_POST['status'] == 1 ? 'checked' : '' ?>>
+                            <input type="checkbox" id="status" name="status" <?= isset($_POST['status']) && $_POST['status'] == '1' ? 'checked' : '' ?>>
                         </div>
                     </article>
                 </section>

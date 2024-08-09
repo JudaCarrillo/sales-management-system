@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once __DIR__ . '../../../controllers/maintenance/EmployeesController.php';
 
 // Procesar la solicitud POST
@@ -144,7 +145,7 @@ $employees = $controller->get($where, $columns);
                         </div>
                         <div class="group">
                             <label for="estatus">Estado:</label>
-                            <input type="checkbox" id="status" name="status" <?= $_POST['status'] == 1 ? 'checked' : '' ?>>
+                            <input type="checkbox" id="status" name="status" <?= isset($_POST['status']) && $_POST['status'] == '1' ? 'checked' : '' ?>>
                         </div>
                     </article>
                 </section>

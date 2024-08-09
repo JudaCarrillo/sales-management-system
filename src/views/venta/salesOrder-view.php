@@ -1,5 +1,5 @@
 <?php
-//Obtener la lista de Clientes
+session_start();
 require_once '../../controllers/maintenance/CustomersController.php';
 $customersController = new CustomersController();
 $where = "";
