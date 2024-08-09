@@ -1,27 +1,37 @@
 <?php
 
 require_once __DIR__ . '/src/controllers/auth/AuthController.php';
+require_once __DIR__ . '/src/models/maintenance/Employees.php';
 
 $errorMessage = '';
 
+$controller = new AuthController();
+$datahandler = new Employees();
+
+$user = "admin";
+$password = "hola";
+$result = $datahandler->getAll();
+echo json_encode($result);
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user = isset($_POST['usuario']) ? trim($_POST['usuario']) : '';
-    $password = isset($_POST['contraseña']) ? trim($_POST['contraseña']) : '';
+  $user = isset($_POST['usuario']) ? trim($_POST['usuario']) : '';
+  $password = isset($_POST['contraseña']) ? trim($_POST['contraseña']) : '';
 
-    $controller = new AuthController();
+  $controller = new AuthController();
 
-    $loginResult = $controller->login($user, $password);
+  $loginResult = $controller->login($user, $password);
 
-    if ($loginResult === true) {
-        header('Location: /src/views/Maintenance/dashboard.php');
-        exit();
-    } else {
-        $errorMessage = "Usuario o contraseña incorrectos";
-    }
+  if ($loginResult === true) {
+    header('Location: /src/views/Maintenance/dashboard.php');
+    exit();
+  } else {
+    $errorMessage = "Usuario o contraseña incorrectos";
+  }
 }
 ?>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -65,4 +75,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
     </div>
   </body>
-</html>
+</html> -->
