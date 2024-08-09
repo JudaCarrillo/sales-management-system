@@ -2,29 +2,37 @@
 // controllers/salesOrdersController.php
 require_once __DIR__ . '/../../models/sales/SalesOrders.php';
 
-class SalesOrdersController {
+class SalesOrdersController
+{
 
     private $db;
     private $model;
-    public function __construct() {
+    public function __construct()
+    {
         $this->model = new SalesOrders();
+        $this->db = $this->model; // Usa el modelo como la propiedad db
     }
-    public function index() {
+
+    public function index()
+    {
         $orders = $this->model->getAll();
         return $orders;
     }
 
     public function get($where = '', $columns = '*')
     {
-        return $this->db->getAll($columns, $where);
+        return $this->model->getAll($columns, $where);
     }
 
-    public function show($id) {
+
+    public function show($id)
+    {
         $order = $this->model->getOrderById($id);
         include 'views/sales_orders/show.php';
     }
     // Save a new sales order
-    public function save() {
+    public function save()
+    {
         $salesOrder = new SalesOrders();
         $data = [
             'code' => $_POST['code'],
@@ -46,7 +54,6 @@ class SalesOrdersController {
             'updated_at' => $_POST['updated_at']
         ];
         $salesOrder->save($data);
-
     }
     // Save a new sales order 2
     public function save2($product)
@@ -61,7 +68,8 @@ class SalesOrdersController {
     }
 
     // Update a sales order
-    public function update() {
+    public function update()
+    {
         $salesOrder = new SalesOrders();
         $data = [
             'code' => $_POST['code'],
@@ -90,7 +98,7 @@ class SalesOrdersController {
     {
         if (!$this->db->codeExists($product['code'])) {
             echo "Error: El producto con el código " . $product['code'] . " no existe.";
-            return; 
+            return;
         }
 
         $statusValue =  !empty($product['status']) ? 1 : $product['status'];
@@ -99,7 +107,6 @@ class SalesOrdersController {
         $this->db->update($product);
         header('Location:/src/views/Maintenance/Producto_view.php');
         exit();
-        
     }
 
     // Otros métodos como create(), store(), edit(), update(), delete() pueden ser añadidos aquí
