@@ -1,0 +1,256 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #e8e8e8;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.title h1 {
+  text-align: left;
+  color: #495464;
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: -2px;
+}
+
+.form {
+  background-color: #d9d9d9;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 2rem;
+  padding: 10px;
+}
+.dividor .parteCode {
+  width: 100%;
+  height: 15vh;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.parteCode .group {
+  justify-content: center;
+  display: flex;
+}
+
+.parteCode .group .code {
+  width: 40%;
+}
+
+.dividor .parteCode article {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.form article {
+  margin-bottom: 20px;
+}
+.form h1 {
+  font-size: 20px;
+  color: #444;
+  border-bottom: 2px solid #495464;
+  padding-bottom: 10px;
+  margin-bottom: 2px;
+  width: 100%;
+}
+.form form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 40%;
+}
+.form .Parte2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.form .separado {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.group {
+  flex: 1;
+  min-width: 200px;
+}
+.group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #495464;
+  font-weight: 600;
+}
+.group input,
+.group select {
+  width: 90%;
+  padding: 10px;
+  background: #c1c1c1;
+  border-radius: 5px;
+  border: none;
+}
+.espacios {
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.listado .caja {
+  display: flex;
+  flex-direction: column;
+  border-radius: 2rem;
+  background: #d9d9d9;
+  padding: 15px;
+  margin-bottom: 30px;
+  gap: 10px;
+}
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  width: 25%;
+  font-size: 16px;
+  font-weight: bold;
+}
+.actions .nuevo {
+  background-color: #3a629c;
+}
+.actions .editar {
+  background-color: #baaa32;
+}
+.actions .cancelar {
+  background-color: #ba3232;
+}
+.agregar {
+  border: none;
+  background-color: #3a629c;
+  border-radius: 1rem;
+  width: 20%;
+  margin-left: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+.agregar:hover {
+  cursor: pointer;
+  background-color: #404040;
+  transition: 0.5s;
+}
+.dividor {
+  width: 100%;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  align-items: flex-start;
+}
+.listado {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.listado table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.listado table th,
+.listado table td {
+  padding: 10px;
+  text-align: left;
+}
+.listado table th {
+  background-color: #f7f7f7;
+}
+.table-content {
+  overflow-x: auto;
+}
+@media (max-width: 1300px) {
+  .listado {
+    width: 80%;
+  }
+}
+@media (max-width: 1100px) {
+  .dividor {
+    flex-direction: column;
+    align-items: center;
+  }
+  .listado {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .espacios,
+  .form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .form {
+    align-items: center;
+  }
+  .group input,
+  .group select {
+    width: 75%;
+  }
+  .form .Parte2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+  }
+}
+@media (max-width: 750px) {
+  .form .Parte2 {
+    display: flex;
+    flex-direction: column;
+    margin-left: -39px;
+  }
+  .form {
+    width: 80%;
+    
+  }
+  .actions button{
+    width: 32%;
+  }
+
+  .button-actions {
+    display: flex;
+    flex-direction: row;
+    margin-left: -2px;
+  }
+
+  .button-actions button {
+    width: 40%;
+  }
+  .table-content {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .table-content table {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .table-content table th,
+  .table-content table td {
+    white-space: nowrap;
+  }
+  .group select {
+    width: 87%;
+  }
+}

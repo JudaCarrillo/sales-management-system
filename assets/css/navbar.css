@@ -1,0 +1,91 @@
+/* Archivo CSS: styles.css */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Espacio entre los elementos */
+  align-items: center; /* Alinear elementos verticalmente */
+  background-color: #495464; /* Color de fondo del navbar */
+  padding: 10px 20px; /* Padding del navbar */
+  color: white; /* Color del texto */
+}
+
+.logo-container {
+  flex: 1; /* Crecimiento flexible para el contenedor del logo */
+}
+
+.logo {
+  height: 50px; /* Altura del logo */
+}
+
+.menu-items {
+  flex: 2; /* Crecimiento flexible para los elementos del menú */
+  display: flex;
+  justify-content: flex-start; /* Alinear los elementos del menú a la izquierda */
+}
+
+.menu-link {
+  margin: 0 15px; /* Margen entre los elementos del menú */
+  text-decoration: none; /* Eliminar subrayado */
+  color: white !important; /* Color del texto */
+  font-weight: bold; /* Texto en negrita */
+  position: relative; /* Posición relativa para el dropdown */
+}
+
+.dropdown {
+  position: relative; /* Posición relativa para el dropdown */
+}
+
+.dropdown-content {
+  display: none; /* Ocultar dropdown por defecto */
+  position: absolute; /* Posición absoluta para el dropdown */
+  background-color: #495464; /* Color de fondo del dropdown */
+  min-width: 160px; /* Ancho mínimo del dropdown */
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); /* Sombra del dropdown */
+  z-index: 1; /* Asegurar que el dropdown esté por encima */
+}
+
+.dropdown-content a {
+  color: white; /* Color del texto de los elementos del dropdown */
+  padding: 12px 16px; /* Padding de los elementos del dropdown */
+  text-decoration: none; /* Eliminar subrayado */
+  display: block; /* Mostrar como bloque los elementos del dropdown */
+}
+
+.dropdown-content a:hover {
+  background-color: #bbbbbe; /* Color de fondo al pasar el cursor */
+}
+
+.user-info {
+  flex: 1; /* Crecimiento flexible para la información del usuario */
+  display: flex;
+  justify-content: flex-end; /* Alinear la información del usuario a la derecha */
+  align-items: center; /* Alinear elementos verticalmente */
+}
+
+.username {
+  margin-right: 10px; /* Margen derecho para el nombre del usuario */
+}
+
+.user-image {
+  height: 40px; /* Altura de la imagen del usuario */
+  border-radius: 50%; /* Hacer la imagen circular */
+}
+
+@media (max-width: 1024px) {
+  .navbar {
+    flex-direction: column;
+  }
+
+  .navbar .dropdown-content {
+    min-width: auto;
+  }
+
+  .user-info {
+    display: none;
+  }
+}
