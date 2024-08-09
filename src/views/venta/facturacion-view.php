@@ -9,6 +9,8 @@
 </head>
 
 <body>
+    <?php include_once '../../../assets/component/navbar.php'; ?>
+
     <div class="container">
         <section class="title">
             <h1>FACTURACION</h1>
@@ -98,7 +100,6 @@
 
             </div>
             <section class="listado">
-
                 <div class="actions">
                     <button class="nuevo" onclick="saveOrder()">Nuevo</button>
                     <button class="cancelar" onclick="resetForm()">Cancelar</button>

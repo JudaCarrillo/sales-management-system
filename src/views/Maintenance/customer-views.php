@@ -71,13 +71,17 @@ $customers = $controller->get($where, $columns);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../assets/css/customer-view.css">
     <title>Mantenimiento de Clientes</title>
 </head>
+
 <body>
+    <?php include_once '../../../assets/component/navbar.php'; ?>
+
     <div class="container">
         <form action="" method="post">
             <section class="title">
@@ -141,19 +145,7 @@ $customers = $controller->get($where, $columns);
                             <input type="checkbox" id="status" name="status" <?= isset($_POST['status']) && $_POST['status'] == '1' ? 'checked' : '' ?>>
                         </div>
                     </article>
-
-                    <div class="separado">
-                        <div class="group">
-                            <label for="fecha_creacion">Fecha de Creación</label>
-                            <input type="date" name="fecha_creacion" id="fecha_creacion" value="<?= htmlspecialchars($_POST['fecha_creacion'] ?? '') ?>">
-                        </div>
-                        <div class="group">
-                            <label for="fecha_actualizacion">Fecha de Actualización</label>
-                            <input type="date" name="fecha_actualizacion" id="fecha_actualizacion" value="<?= htmlspecialchars($_POST['fecha_actualizacion'] ?? '') ?>">
-                        </div>
-                    </div>
                 </section>
-
                 <section class="listado">
                     <div class="caja">
                         <h1>LISTADO DE CLIENTES</h1>
@@ -169,35 +161,38 @@ $customers = $controller->get($where, $columns);
                     </div>
                     <div class="actions">
                         <button class="nuevo" name="action" value="Guardar Cliente">Nuevo</button>
-                        
+
                         <button class="editar" name="action" value="Editar Cliente">Editar</button>
                         <button class="cancelar" name="action" value="Deshabilitar Cliente">Deshabilitar</button>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Código</th>
-                                <th>Nombre</th>
-                                <th>Apellido Paterno</th>
-                                <th>DNI</th>
-                                <th>Dirección</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($customers as $customer) : ?>
+                    <div class="table-content">
+                        <table>
+                            <thead>
                                 <tr>
-                                    <td><?= htmlspecialchars($customer['code']) ?></td>
-                                    <td><?= htmlspecialchars($customer['name']) ?></td>
-                                    <td><?= htmlspecialchars($customer['father_last_name']) ?></td>
-                                    <td><?= htmlspecialchars($customer['dni']) ?></td>
-                                    <td><?= htmlspecialchars($customer['address']) ?></td>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido Paterno</th>
+                                    <th>DNI</th>
+                                    <th>Dirección</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($customers as $customer) : ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($customer['code']) ?></td>
+                                        <td><?= htmlspecialchars($customer['name']) ?></td>
+                                        <td><?= htmlspecialchars($customer['father_last_name']) ?></td>
+                                        <td><?= htmlspecialchars($customer['dni']) ?></td>
+                                        <td><?= htmlspecialchars($customer['address']) ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
             </div>
         </form>
     </div>
 </body>
+
 </html>

@@ -164,7 +164,7 @@ function saveOrder() {
     .then((data) => {
       if (data.success) {
         alert("Orden de venta guardada con éxito");
-        // Limpiar el formulario o redirigir a una nueva página
+        resetAllForms();
       } else {
         alert("Error al guardar la orden de venta: " + data.message);
       }

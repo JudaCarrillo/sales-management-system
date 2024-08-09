@@ -3,14 +3,14 @@
 require_once '../../controllers/maintenance/CustomersController.php';
 $customersController = new CustomersController();
 $where = "";
-$columns = ['code', 'business_name', 'address', 'dni'];
+$columns = ['customer_id', 'code', 'business_name', 'address', 'dni'];
 $customers = $customersController->get($where, $columns);
 
 //Obtener la lista de Vendedores
 require_once '../../controllers/maintenance/EmployeesController.php';
 $employeesController = new EmployeesController();
 $where = "";
-$columns = ['code', 'name', 'father_last_name', 'mother_last_name'];
+$columns = ['employee_id', 'code', 'name', 'father_last_name', 'mother_last_name'];
 $employees = $employeesController->get($where, $columns);
 
 //Obtener la lista de Productos
@@ -32,6 +32,8 @@ $products = $productsController->get($where, $columns);
 </head>
 
 <body>
+    <?php include_once '../../../assets/component/navbar.php'; ?>
+
     <div class="container">
         <section class="title">
             <h1>ORDEN DE VENTAS</h1>
@@ -52,7 +54,7 @@ $products = $productsController->get($where, $columns);
                                 <select name="customer" id="customer">
                                     <option value="">Seleccione un cliente</option>
                                     <?php foreach ($customers as $customer) : ?>
-                                        <option value="<?php echo htmlspecialchars($customer['code']); ?>" data-address="<?php echo htmlspecialchars($customer['address']); ?>" data-dni="<?php echo htmlspecialchars($customer['dni']); ?>">
+                                        <option value="<?php echo htmlspecialchars($customer['customer_id']); ?>" data-address="<?php echo htmlspecialchars($customer['address']); ?>" data-dni="<?php echo htmlspecialchars($customer['dni']); ?>">
                                             <?php echo htmlspecialchars($customer['code'] . ' - ' . $customer['business_name']); ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -86,7 +88,7 @@ $products = $productsController->get($where, $columns);
                                 <select name="employee" id="employee">
                                     <option value="">Seleccione un empleado</option>
                                     <?php foreach ($employees as $employee) : ?>
-                                        <option value="<?php echo htmlspecialchars($employee['code']); ?>">
+                                        <option value="<?php echo htmlspecialchars($employee['employee_id']); ?>">
                                             <?php echo htmlspecialchars($employee['code'] . ' - ' . $employee['name'] . ' ' . $employee['father_last_name'] . ' ' . $employee['mother_last_name']); ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -150,40 +152,42 @@ $products = $productsController->get($where, $columns);
                     <button class="cancelar" onclick="resetForm()">Cancelar</button>
                 </div>
 
-                <table id="productTable">
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Nombre</th>
-                            <th>Cantidad</th>
-                            <th>Precio Unitario</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody id="productTableBody">
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="4">Total Neto</td>
-                            <td id="totalNeto">0.00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">IGV (18%)</td>
-                            <td id="igv">0.00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">Total Final</td>
-                            <td id="totalFinal">0.00</td>
-                        </tr>
-                    </tfoot>
-                </table>
+                <div class="table-content">
+                    <table id="productTable">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTableBody">
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4">Total Neto</td>
+                                <td id="totalNeto">0.00</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">IGV (18%)</td>
+                                <td id="igv">0.00</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">Total Final</td>
+                                <td id="totalFinal">0.00</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
                 <div class="actions">
                     <button class="nuevo" onclick="saveOrder()">Registrar Venta</button>
                     <button class="cancelar" onclick="resetAllForms()">Limpiar</button>
                 </div>
             </section>
             <section class="listado">
-                
+
             </section>
         </div>
     </div>

@@ -70,13 +70,15 @@ function saveOrder() {
   })
     .then((response) => response.json())
     .then((data) => {
+      
       if (!data.success) {
         alert("Error al guardar la factura de venta: " + data.message);
       }
-
+      
       alert("Factura de venta guardada con éxito");
+      resetForm();
     })
-    .catch((error) => {
+    .catch((error) => {     
       console.error("Error:", error);
       alert("Error al guardar la factura de venta");
     });
