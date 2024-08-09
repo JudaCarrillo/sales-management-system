@@ -75,8 +75,14 @@ function addProduct() {
   if (!productSelect.value || !quantity || !price) {
     alert("Por favor, complete todos los campos del producto");
     return;
+  } // Validar el stock
+  if (
+    parseInt(quantity) >
+    parseInt(productSelect.selectedOptions[0].dataset.stock)
+  ) {
+    alert("La cantidad ingresada supera el stock disponible");
+    return;
   }
-
   const selectedOption = productSelect.options[productSelect.selectedIndex];
   const product = {
     product_id: selectedOption.dataset.productid,
@@ -167,4 +173,27 @@ function saveOrder() {
       console.error("Error:", error);
       alert("Error al guardar la orden de venta");
     });
+}
+
+function resetForm() {
+  document.getElementById("totalNeto").textContent = "0.00";
+  document.getElementById("igv").textContent = "0.00";
+  document.getElementById("totalFinal").textContent = "0.00";
+  products = [];
+  updateProductTable();
+  clearProductForm();
+}
+
+function resetAllForms() {
+  resetForm();
+  document.getElementById("code").value = "";
+  document.getElementById("customer").value = "";
+  document.getElementById("employee").value = "";
+  document.getElementById("dni").value = "";
+  document.getElementById("address").value = "";
+  document.getElementById("paymentType").value = "";
+  document.getElementById("currency").value = "";
+  document.getElementById("branch_office").value = "";
+  document.getElementById("date").value = "";
+  document.getElementById("notes").value = "";
 }

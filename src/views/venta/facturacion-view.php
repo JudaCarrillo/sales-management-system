@@ -101,7 +101,7 @@
 
                 <div class="actions">
                     <button class="nuevo" onclick="saveOrder()">Nuevo</button>
-                    <button class="cancelar" onclick="resetForm">Cancelar</button>
+                    <button class="cancelar" onclick="resetForm()">Cancelar</button>
                 </div>
 
                 <table id="productTable">
@@ -126,6 +126,7 @@
             </section>
         </div>
     </div>
+    <script src="../../../assets/js/ventas/facturacion.js"></script>
 </body>
 
 

@@ -128,7 +128,6 @@ $products = $productsController->get($where, $columns);
                                     </option>
                                 <?php endforeach; ?>
                             </select>
-                            <button type="button" class="agregar" onclick="addProduct()">Agregar</button>
                         </div>
                         <div class="grupo-producto">
                             <div class="group">
@@ -147,7 +146,7 @@ $products = $productsController->get($where, $columns);
                 </div>
 
                 <div class="actions">
-                    <button class="nuevo" onclick="saveOrder()">Nuevo</button>
+                    <button type="button" class="nuevo" onclick="addProduct()">Agregar</button>
                     <button class="cancelar" onclick="resetForm()">Cancelar</button>
                 </div>
 
@@ -178,7 +177,13 @@ $products = $productsController->get($where, $columns);
                         </tr>
                     </tfoot>
                 </table>
-
+                <div class="actions">
+                    <button class="nuevo" onclick="saveOrder()">Registrar Venta</button>
+                    <button class="cancelar" onclick="resetAllForms()">Limpiar</button>
+                </div>
+            </section>
+            <section class="listado">
+                
             </section>
         </div>
     </div>

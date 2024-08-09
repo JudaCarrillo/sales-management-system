@@ -40,7 +40,7 @@ class Bills
     public function save($data)
     {
         $sql = "INSERT INTO " . $this->table .
-            " (sales_order_id, customer_dni, customer_name, address, date_issue, igv, currency, created_at, updated_at)
+            " (sales_order_id, customer_dni, customer_name, address, date_issue, igv, final_price, currency, created_at, updated_at)
         VALUES (
         '" . $data['sales_order_id'] . "',
         '" . $data['customer_dni'] . "',
@@ -48,6 +48,7 @@ class Bills
         '" . $data['address'] . "',
         '" . $data['date_issue'] . "',
         '" . $data['igv'] . "',
+        '" . $data['final_price'] . "',
         '" . $data['currency'] . "',
         '" . $data['created_at'] . "',
         '" . $data['updated_at'] . "'

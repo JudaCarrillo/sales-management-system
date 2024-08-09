@@ -49,47 +49,50 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-/* //Mostrar los Detalles de Ventas
-    function loadSalesDetails(salesOrderId) {
-        fetch(`../../controllers/ventas/getSalesDetails.php?sales_order_id=${salesOrderId}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    updateProductTable(data.details);
-                    calculateTotals();
-                } else {
-                    console.error('Error al cargar los detalles:', data.message);
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    }
+function saveOrder() {
+  const product = {
+    sales_order_id: document.getElementById("order").value,
+    customer_dni: document.getElementById("customer_dni").value,
+    customer_name: document.getElementById("customer_name").value,
+    address: document.getElementById("customer_address").value,
+    date_issue: document.getElementById("date").value,
+    igv: document.getElementById("igv").textContent,
+    final_price: document.getElementById("totalFinal").textContent,
+    currency: document.getElementById("currency").value,
+  };
 
-    function updateProductTable(details) {
-        const tbody = document.getElementById('productTableBody');
-        tbody.innerHTML = '';
+  fetch("../../controllers/ventas/saveBills.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(product),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (!data.success) {
+        alert("Error al guardar la factura de venta: " + data.message);
+      }
 
-        details.forEach(detail => {
-            const row = tbody.insertRow();
-            row.innerHTML = `
-            <td>${detail.product_id}</td>
-            <td>${detail.product_name}</td>
-            <td>${detail.quantity}</td>
-            <td>${parseFloat(detail.product_sales_price).toFixed(2)}</td>
-            <td>${parseFloat(detail.total_price).toFixed(2)}</td>
-        `;
-        });
-    }
+      alert("Factura de venta guardada con éxito");
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      alert("Error al guardar la factura de venta");
+    });
+}
 
-    function calculateTotals() {
-        const rows = document.getElementById('productTableBody').rows;
-        let totalNeto = 0;
-        for (let row of rows) {
-            totalNeto += parseFloat(row.cells[4].textContent);
-        }
-        const igv = totalNeto * 0.18;
-        const totalFinal = totalNeto + igv;
-
-        document.getElementById('totalNeto').textContent = totalNeto.toFixed(2);
-        document.getElementById('igv').textContent = igv.toFixed(2);
-        document.getElementById('totalFinal').textContent = totalFinal.toFixed(2);
-    } */
+function resetForm() {
+  document.getElementById("totalBruto").textContent = 0;
+  document.getElementById("igv").textContent = 0;
+  document.getElementById("totalFinal").textContent = 0;
+  document.getElementById("customer_dni").value = "";
+  document.getElementById("customer_address").value = "";
+  document.getElementById("customer_name").value = "";
+  document.getElementById("date").value = "";
+  document.getElementById("branch_office").value = "";
+  document.getElementById("currency").value = "";
+  document.getElementById("pay_method").value = "";
+  document.getElementById("code").value = "";
+  document.getElementById("order").value = "";
+}
