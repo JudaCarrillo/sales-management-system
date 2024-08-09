@@ -1,3 +1,26 @@
+<?php
+
+require_once __DIR__ . '/src/controllers/auth/AuthController.php';
+
+$errorMessage = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $user = isset($_POST['usuario']) ? trim($_POST['usuario']) : '';
+    $password = isset($_POST['contraseña']) ? trim($_POST['contraseña']) : '';
+
+    $controller = new AuthController();
+
+    $loginResult = $controller->login($user, $password);
+
+    if ($loginResult === true) {
+        header('Location: /src/views/Maintenance/dashboard.php');
+        exit();
+    } else {
+        $errorMessage = "Usuario o contraseña incorrectos";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -13,7 +36,7 @@
           <h2 class="Frase">Sistema de Gestion de Ventas</h2>
           <img src="./assets/img/Logo.png" alt="Logo" />
         </div>
-        <form action="procesar_login.php" method="post">
+        <form action="" method="post">
           <div class="grupo-formulario">
             <input
               type="text"
@@ -34,6 +57,9 @@
           </div>
           <button class="boton-iniciar-sesion" type="submit">Iniciar Sesión</button>
         </form>
+        <?php if ($errorMessage): ?>
+        <p class="error"><?php echo htmlspecialchars($errorMessage); ?></p>
+        <?php endif; ?>
       </div>
       <div class="seccion-derecha">
       </div>

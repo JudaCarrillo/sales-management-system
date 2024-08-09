@@ -88,11 +88,9 @@ $products = $controller->get($where, $columns);
 
     <div class="container">
         <form action="" method="post">
-
             <section class="title">
                 <h1>Mantenimiento de productos</h1>
             </section>
-
             <?php if (isset($success)) : ?>
                 <div class="success-message"><?= htmlspecialchars($success) ?></div>
             <?php endif; ?>
@@ -100,9 +98,7 @@ $products = $controller->get($where, $columns);
             <?php if (isset($error)) : ?>
                 <div class="error-message"><?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
-
             <div class="dividor">
-
                 <section class="form">
                     <h1>DETALLES DE PRODUCTO</h1>
                     <article class="Parte1">
@@ -142,22 +138,10 @@ $products = $controller->get($where, $columns);
                         </div>
                         <div class="group">
                             <label for="status">Estado:</label>
-                            <input type="checkbox" id="status" name="status" <?= isset($_POST['status']) ? 'checked' : '' ?>>
+                            <input type="checkbox" id="status" name="status" <?= $_POST['status'] == 1 ? 'checked' : '' ?>>
                         </div>
                     </article>
-                    <div class="separado">
-                        <div class="group">
-                            <label for="fecha_creacion">Fecha de Creación</label>
-                            <input type="date" name="fecha_creacion" id="fecha_creacion" value="<?= htmlspecialchars($_POST['fecha_creacion'] ?? '') ?>">
-                        </div>
-                        <div class="group">
-                            <label for="fecha_actualizacion">Fecha de Actualización</label>
-                            <input type="date" name="fecha_actualizacion" id="fecha_actualizacion" value="<?= htmlspecialchars($_POST['fecha_actualizacion'] ?? '') ?>">
-                        </div>
-                    </div>
-
                 </section>
-
                 <section class="listado">
                     <div class="caja">
                         <h1>LISTADO DE PRODUCTOS</h1>
@@ -174,30 +158,32 @@ $products = $controller->get($where, $columns);
                         <button class="editar" name="action" value="Editar Producto">Editar</button>
                         <button class="cancelar" name="action" value="Deshabilitar Producto">Deshabilitar</button>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Código</th>
-                                <th>Nombre</th>
-                                <th>Categoría</th>
-                                <th>Marca</th>
-                                <th>Stock</th>
-                                <th>Precio</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($products as $product) : ?>
+                    <div class="table-content">
+                        <table>
+                            <thead>
                                 <tr>
-                                    <td><?= htmlspecialchars($product['code']) ?></td>
-                                    <td><?= htmlspecialchars($product['name']) ?></td>
-                                    <td><?= htmlspecialchars($product['category']) ?></td>
-                                    <td><?= htmlspecialchars($product['brand']) ?></td>
-                                    <td><?= htmlspecialchars($product['stock']) ?></td>
-                                    <td><?= htmlspecialchars($product['price']) ?></td>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Categoría</th>
+                                    <th>Marca</th>
+                                    <th>Stock</th>
+                                    <th>Precio</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($products as $product) : ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($product['code']) ?></td>
+                                        <td><?= htmlspecialchars($product['name']) ?></td>
+                                        <td><?= htmlspecialchars($product['category']) ?></td>
+                                        <td><?= htmlspecialchars($product['brand']) ?></td>
+                                        <td><?= htmlspecialchars($product['stock']) ?></td>
+                                        <td><?= htmlspecialchars($product['price']) ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
             </div>
         </form>

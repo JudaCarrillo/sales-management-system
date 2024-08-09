@@ -1,3 +1,26 @@
+<?php
+//Obtener la lista de Clientes
+require_once '../../controllers/maintenance/CustomersController.php';
+$customersController = new CustomersController();
+$where = "";
+$columns = ['customer_id', 'code', 'business_name', 'address', 'dni'];
+$customers = $customersController->get($where, $columns);
+
+//Obtener la lista de Vendedores
+require_once '../../controllers/maintenance/EmployeesController.php';
+$employeesController = new EmployeesController();
+$where = "";
+$columns = ['employee_id', 'code', 'name', 'father_last_name', 'mother_last_name'];
+$employees = $employeesController->get($where, $columns);
+
+//Obtener la lista de Productos
+require_once '../../controllers/maintenance/ProductsController.php';
+$productsController = new ProductsController();
+$where = "";
+$columns = ['product_id', 'code', 'name', 'price', 'stock'];
+$products = $productsController->get($where, $columns);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,19 +42,22 @@
             <div class="espacios">
                 <div class="parteCode">
                     <div class="group">
-                        <input class="code" type="text" name="code" id="code">
+                        <input class="code" type="text" name="code" id="code" onblur="fetchOrderDetails()">
                     </div>
                 </div>
                 <section class="form">
                     <h1>DATOS DE CLIENTE</h1>
-                    <form action="../../../save_product.php" method="post">
+                    <form action="#" method="post">
                         <article class="Parte2">
                             <div class="group">
                                 <label for="cliente">Cliente</label>
-                                <select name="client" id="client">
-                                    <option value="s">s</option>
-                                    <option value="s">s</option>
-                                    <option value="s">s</option>
+                                <select name="customer" id="customer">
+                                    <option value="">Seleccione un cliente</option>
+                                    <?php foreach ($customers as $customer) : ?>
+                                        <option value="<?php echo htmlspecialchars($customer['customer_id']); ?>" data-address="<?php echo htmlspecialchars($customer['address']); ?>" data-dni="<?php echo htmlspecialchars($customer['dni']); ?>">
+                                            <?php echo htmlspecialchars($customer['code'] . ' - ' . $customer['business_name']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="group">
@@ -39,8 +65,8 @@
                                 <input type="text" name="address" id="address">
                             </div>
                             <div class="group">
-                                <label for="ruc">RUC/DNI</label>
-                                <input type="text" name="ruc" id="ruc">
+                                <label for="dni">RUC/DNI</label>
+                                <input type="text" name="dni" id="dni">
                             </div>
                             <div class="group">
                                 <label for="moneda">Moneda de pago</label>
@@ -59,27 +85,28 @@
                         <article class="Parte2">
                             <div class="group">
                                 <label for="vendedor">Vendedor</label>
-                                <select name="" id="">
-                                    <option value="s">s</option>
-                                    <option value="s">s</option>
-                                    <option value="s">s</option>
+                                <select name="employee" id="employee">
+                                    <option value="">Seleccione un empleado</option>
+                                    <?php foreach ($employees as $employee) : ?>
+                                        <option value="<?php echo htmlspecialchars($employee['employee_id']); ?>">
+                                            <?php echo htmlspecialchars($employee['code'] . ' - ' . $employee['name'] . ' ' . $employee['father_last_name'] . ' ' . $employee['mother_last_name']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
                                 </select>
                             </div>
                             <div class="group">
                                 <label for="sucursal">Sucursal</label>
-                                <input type="text" name="" id="">
+                                <input type="text" name="branch_office" id="branch_office">
                             </div>
                             <div class="group">
                                 <label for="fechapago">Fecha de pago</label>
-                                <input type="text" name="" id="">
+                                <input type="date" name="date" id="date">
                             </div>
-
-
                         </article>
                         <div class="notas">
                             <div class="group">
                                 <label for="nota">Nota</label>
-                                <textarea name="note" id="note" cols="30" rows="5"></textarea>
+                                <textarea name="notes" id="notes" cols="30" rows="5"></textarea>
                             </div>
                         </div>
                     </form>
@@ -88,87 +115,85 @@
             <section class="listado">
                 <div class="caja">
                     <h1>DETALLES DE PRODUCTOS</h1>
-                    <div class="group">
-                        <label for="search" class="search_label">PRODUCTO</label>
-                        <div class="search-img">
-                            <select name="producto" id="">
-                                <option value="s">s</option>
-                                <option value="s">s</option>
-                                <option value="s">s</option>
+                    <form id="productForm" onsubmit="return false;">
+                        <div class="product">
+                            <label for="producto">PRODUCTO</label>
+                            <select name="product" id="product">
+                                <option value="">Seleccione un producto</option>
+                                <?php foreach ($products as $product) : ?>
+                                    <option
+                                        value="<?php echo htmlspecialchars($product['code']); ?>"
+                                        data-price="<?php echo htmlspecialchars($product['price']); ?>"
+                                        data-stock="<?php echo htmlspecialchars($product['stock']); ?>"
+                                        data-productId="<?php echo htmlspecialchars($product['product_id']); ?>">
+                                        <?php echo htmlspecialchars($product['code'] . ' - ' . $product['name']); ?>
+                                    </option>
+                                <?php endforeach; ?>
                             </select>
-                            <button class="agregar">Agregar</button>
                         </div>
-                    </div>
-                    <div class="grupo-producto">
-                        <div class="group">
-                            <label for="cantidad">Cantidad</label>
-                            <input type="number" name="quantity" id="quantity">
-                        </div>
-                        <div class="group">
-                            <label for="p.unitario">P. Unitario</label>
-                            <input type="number" name="price" id="price">
-                        </div>
-                        <div class="group">
-                            <label for="stock">Stock</label>
-                            <input type="number" name="stock" id="stock">
-                        </div>
-                    </div>
+                        <div class="grupo-producto">
+                            <div class="group">
+                                <label for="cantidad">Cantidad</label>
+                                <input type="number" name="quantity" id="quantity" required>
+                            </div>
+                            <div class="group">
+                                <label for="price">P. Unitario</label>
+                                <input type="number" name="price" id="price" required>
+                            </div>
+                            <div class="group">
+                                <label for="stock">Stock</label>
+                                <input type="number" name="stock" id="stock">
+                            </div>
+                    </form>
                 </div>
 
                 <div class="actions">
-                    <button class="nuevo">Nuevo</button>
-                    <button class="editar">Editar</button>
-                    <button class="cancelar">Cancelar</button>
+                    <button type="button" class="nuevo" onclick="addProduct()">Agregar</button>
+                    <button class="cancelar" onclick="resetForm()">Cancelar</button>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Nombre</th>
-                            <th>Categoría</th>
-                            <th>Marca</th>
-                            <th>Stock</th>
-                            <th>Precio</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
-                        <tr>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
-                        <tr>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>s</td>
-                            <td>2</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>r</td>
-                            <td>s</td>
-                            <td>s</td>
-                        </tr>
-                    </tbody>
-                </table>
+
+                <div class="table-content">
+                    <table id="productTable">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTableBody">
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4">Total Neto</td>
+                                <td id="totalNeto">0.00</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">IGV (18%)</td>
+                                <td id="igv">0.00</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">Total Final</td>
+                                <td id="totalFinal">0.00</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="actions">
+                    <button class="nuevo" onclick="saveOrder()">Registrar Venta</button>
+                    <button class="cancelar" onclick="resetAllForms()">Limpiar</button>
+                </div>
+            </section>
+            <section class="listado">
+
             </section>
         </div>
     </div>
+
+    <script src="../../../assets/js/ventas/ordenVenta.js"></script>
 </body>
+
 
 </html>

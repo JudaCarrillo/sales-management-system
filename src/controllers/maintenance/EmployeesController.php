@@ -59,10 +59,6 @@ class EmployeesController
     // Deshabilitar un empleado
     public function disable($dni)
     {
-        if (!$this->db->dniExists($dni)) {
-            echo "Error: El empleado con el DNI " . $dni . " no existe.";
-            return;
-        }
         $this->db->disable($dni);
         header('Location:/src/views/Maintenance/employees_view.php');
         exit();
@@ -73,4 +69,5 @@ class EmployeesController
     {
         return $this->db->getByDni($dni);
     }
+
 }

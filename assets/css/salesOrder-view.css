@@ -28,7 +28,6 @@ body {
 .dividor .parteCode {
   width: 100%;
   height: 15vh;
-  background: #d9d9d9;
   border-radius: 2rem;
   display: flex;
   justify-content: center;
@@ -85,18 +84,50 @@ body {
   color: #495464;
   font-weight: 600;
 }
-.group input,
-.group select {
+.group input {
   width: 90%;
   padding: 10px;
   background: #c1c1c1;
   border-radius: 5px;
   border: none;
 }
-.espacios{
-    gap: 20px;
-    display: flex;
-    flex-direction: column;
+.group select {
+  width: 100%;
+  padding: 10px;
+  background: #c1c1c1;
+  border-radius: 5px;
+  border: none;
+}
+
+.product {
+  flex: 1;
+  min-width: 200px;
+}
+.product label {
+  display: block;
+  margin-bottom: 5px;
+  color: #495464;
+  font-weight: 600;
+}
+.product input {
+  width: 70%;
+  padding: 10px;
+  background: #c1c1c1;
+  border-radius: 5px;
+  border: none;
+}
+.product select {
+  width: 70%;
+  padding: 10px;
+  background: #c1c1c1;
+  border-radius: 5px;
+  border: none;
+}
+
+.espacios {
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
 }
 .listado .caja {
   display: flex;
@@ -126,9 +157,11 @@ body {
   width: 94%;
   padding-left: 10px;
 }
-.grupo-producto{
-    display: flex;
-    flex-direction: row;
+.grupo-producto {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin: 1rem 0;
 }
 .actions {
   display: flex;
@@ -145,8 +178,8 @@ textarea {
   border-radius: 5px;
   border: none;
 }
-.notas{
-    margin-top: -26px;
+.notas {
+  margin-top: -26px;
 }
 .actions button {
   padding: 10px 20px;
@@ -168,19 +201,19 @@ textarea {
   background-color: #ba3232;
 }
 .agregar {
-    border: none;
-    background-color: #3a629c;
-    border-radius: 1rem;
-    width: 20%;
-    margin-left: 20px;
-    font-size: 14px;
-    font-weight: 700;
-    color: #ffffff;
+  border: none;
+  background-color: #3a629c;
+  border-radius: 1rem;
+  width: 20%;
+  margin-left: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
 }
-.agregar:hover{
-    cursor: pointer;
-    background-color: #404040;
-    transition: 0.5s;
+.agregar:hover {
+  cursor: pointer;
+  background-color: #404040;
+  transition: 0.5s;
 }
 .dividor {
   width: 100%;
@@ -217,6 +250,9 @@ textarea {
 .listado table th {
   background-color: #f7f7f7;
 }
+.table-content {
+  overflow-x: auto;
+}
 @media (max-width: 1100px) {
   .dividor {
     flex-direction: column;
@@ -249,21 +285,56 @@ textarea {
   }
 }
 @media (max-width: 750px) {
-
-    .group input,
-    .group select {
-      width: 100%;
-    }
-    .grupo-producto{
-      flex-direction: column;
-      width: 77%;
-    }
-    .form .Parte2 {
-      grid-template-columns: 1fr;
-      padding: -10px;
-      justify-content: center;
-    }
-    .notas{
-      margin-left: -30px;
-    }
+  .form .Parte2 {
+    grid-template-columns: 1fr;
+    margin-left: -10px;
+    justify-content: center;
   }
+  .button-actions {
+    display: flex;
+    flex-direction: row;
+    margin-left: -2px;
+  }
+  .actions button {
+    width: 77%;
+  }
+  .listado .caja {
+    padding: 15px 0px 10px 10px;
+  }
+  .button-actions button {
+    width: 40%;
+  }
+  .table-content {
+    width: 100%;
+    overflow-x: auto;
+  }
+  .espacios .form {
+    width: 90%;
+  }
+
+  .table-content table {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .table-content table th,
+  .table-content table td {
+    white-space: nowrap;
+  }
+  .group select {
+    width: 87%;
+  }
+
+  .group input,
+  .group select {
+    width: 100%;
+  }
+  .grupo-producto {
+    flex-direction: column;
+    width: 77%;
+  }
+
+  .notas {
+    margin-left: -45px;
+  }
+}

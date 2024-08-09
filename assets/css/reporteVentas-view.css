@@ -25,7 +25,7 @@ body {
   padding: 10px;
 }
 .button-actions button {
-  padding: 7px 49px;
+  padding: 7px 26px;
   border: none;
   border-radius: 5px;
   color: #fff;
@@ -173,7 +173,6 @@ body {
   .form {
     width: 100%;
     max-width: 600px;
-    margin: 0 auto;
   }
   .form {
     align-items: center;
@@ -195,12 +194,32 @@ body {
     display: flex;
     flex-direction: column;
   }
-  .button-actions{
+
+  .button-actions {
     display: flex;
     flex-direction: row;
     margin-left: -2px;
   }
-  .button-actions button{
+
+  .button-actions button {
     width: 40%;
   }
+  .listado {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .listado table {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .listado table th,
+  .listado table td {
+    white-space: nowrap;
+  }
+  .group select {
+    width: 87%;
+  }
 }
+
