@@ -125,4 +125,26 @@ class SalesOrders
         $result = $this->db->query($sql);
         return $result->fetch_assoc();
     }
+
+    // Get a sales order by code
+    public function getOrderByCode($code)
+    {
+        $sql = "SELECT * FROM " . $this->table . " WHERE code = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param('s', $code);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
+
+    public function getItemWithCustomerName()
+    {
+
+        $sql = "SELECT so.sales_order_id, so.gross_price, so.igv, so.final_price , so.customer_dni, so.customer_address, so.branch_office, so.currency, so.pay_method, so.date, so.code, c.name FROM  " . $this->table . " so " .
+            " INNER JOIN customers c ON so.customer_id = c.customer_id" ;
+
+        $result = $this->db->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }

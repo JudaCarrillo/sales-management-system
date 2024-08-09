@@ -24,6 +24,10 @@ class SalesOrdersController
         return $this->model->getAll($columns, $where);
     }
 
+    public function getItemWithCustomerName() {
+        return $this->model->getItemWithCustomerName();
+    }
+
 
     public function show($id)
     {

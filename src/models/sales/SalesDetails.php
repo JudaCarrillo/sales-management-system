@@ -89,15 +89,11 @@ class SalesDetails
     // Get sales details by sales order id
     public function getBySalesOrderId($salesOrderId)
     {
-        $sql = "SELECT * FROM " . $this->table . " WHERE 
-        sales_order_id = " . $salesOrderId;
+        $sql = "SELECT * FROM " . $this->table . " WHERE sales_order_id = " . $salesOrderId;
         $result = $this->db->query($sql);
-        $salesDetails = [];
-        while ($row = $result->fetch_assoc()) {
-            $salesDetails[] = $row;
-        }
-        return $salesDetails;
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
+
 
     // Get a sales detail by id
     public function getById($id)

@@ -85,18 +85,50 @@ body {
   color: #495464;
   font-weight: 600;
 }
-.group input,
-.group select {
+.group input {
   width: 90%;
   padding: 10px;
   background: #c1c1c1;
   border-radius: 5px;
   border: none;
 }
-.espacios{
-    gap: 20px;
-    display: flex;
-    flex-direction: column;
+.group select {
+  width: 100%;
+  padding: 10px;
+  background: #c1c1c1;
+  border-radius: 5px;
+  border: none;
+}
+
+.product {
+  flex: 1;
+  min-width: 200px;
+}
+.product label {
+  display: block;
+  margin-bottom: 5px;
+  color: #495464;
+  font-weight: 600;
+}
+.product input {
+  width: 70%;
+  padding: 10px;
+  background: #c1c1c1;
+  border-radius: 5px;
+  border: none;
+}
+.product select {
+  width: 70%;
+  padding: 10px;
+  background: #c1c1c1;
+  border-radius: 5px;
+  border: none;
+}
+
+.espacios {
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
 }
 .listado .caja {
   display: flex;
@@ -125,10 +157,10 @@ body {
   width: 94%;
   padding-left: 10px;
 }
-.grupo-producto{
-    display: flex;
-    flex-direction: row;
-    gap: 10px
+.grupo-producto {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 .actions {
   display: flex;
@@ -145,8 +177,8 @@ textarea {
   border-radius: 5px;
   border: none;
 }
-.notas{
-    margin-top: -26px;
+.notas {
+  margin-top: -26px;
 }
 .actions button {
   padding: 10px 20px;
@@ -168,19 +200,19 @@ textarea {
   background-color: #ba3232;
 }
 .agregar {
-    border: none;
-    background-color: #3a629c;
-    border-radius: 1rem;
-    width: 20%;
-    margin-left: 20px;
-    font-size: 14px;
-    font-weight: 700;
-    color: #ffffff;
+  border: none;
+  background-color: #3a629c;
+  border-radius: 1rem;
+  width: 20%;
+  margin-left: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
 }
-.agregar:hover{
-    cursor: pointer;
-    background-color: #404040;
-    transition: 0.5s;
+.agregar:hover {
+  cursor: pointer;
+  background-color: #404040;
+  transition: 0.5s;
 }
 .dividor {
   width: 100%;
