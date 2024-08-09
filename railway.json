@@ -5,7 +5,6 @@
     },
     "deploy": {
         "runtime": "V2",
-        "startCommand": "php -S 0.0.0.0:${PORT}",
         "numReplicas": 1,
         "sleepApplication": false,
         "restartPolicyType": "ON_FAILURE",
