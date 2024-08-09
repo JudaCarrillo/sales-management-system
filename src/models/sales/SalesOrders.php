@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../../../core/connection.php';
 class SalesOrders
 {
-    private $db;
+    public $db;
     private $table = "sales_orders";
 
     public function __construct()
@@ -53,7 +53,7 @@ class SalesOrders
     public function save($data)
     {
         $sql = "INSERT INTO " . $this->table . " 
-        (code, customer_id, employee_id, customer_dni, customer_address, pay_method, currency, branch_office, date, notes, gross_price, discount, net_price, igv, final_price, created_at, updated_at) 
+        (code, customer_id, employee_id, customer_dni, customer_address, pay_method, currency, branch_office, date, notes, gross_price, igv, final_price, created_at, updated_at) 
         VALUES (
         '" . $data['code'] . "',
         '" . $data['customer_id'] . "',

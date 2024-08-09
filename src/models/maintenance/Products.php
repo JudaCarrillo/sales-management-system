@@ -88,4 +88,12 @@ class Products
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
+
+    public function updateStock($product_id, $newStock)
+    {
+        $sql = "UPDATE " . $this->table . " SET stock = " . $newStock . " WHERE product_id = ?";
+        $stmt = $this->db->connect()->prepare($sql);
+        $stmt->bind_param('s', $product_id);
+        $stmt->execute();
+    }
 }

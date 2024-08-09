@@ -17,9 +17,11 @@ $employees = $employeesController->get($where, $columns);
 require_once '../../controllers/maintenance/ProductsController.php';
 $productsController = new ProductsController();
 $where = "";
-$columns = ['code', 'name', 'price', 'stock'];
+$columns = ['product_id', 'code', 'name', 'price', 'stock'];
 $products = $productsController->get($where, $columns);
 ?>
+
+
 
 <?php
 /* require_once '../../controllers/maintenance/ProductsController.php';
@@ -203,7 +205,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['detalles_venta']))
                             <select name="product" id="product">
                                 <option value="">Seleccione un producto</option>
                                 <?php foreach ($products as $product) : ?>
-                                    <option value="<?php echo htmlspecialchars($product['code']); ?>" data-price="<?php echo htmlspecialchars($product['price']); ?>" data-stock="<?php echo htmlspecialchars($product['stock']); ?>">
+                                    <option 
+                                        value="<?php echo htmlspecialchars($product['code']); ?>" 
+                                        data-price="<?php echo htmlspecialchars($product['price']); ?>" 
+                                        data-stock="<?php echo htmlspecialchars($product['stock']); ?>" 
+                                        data-productId="<?php echo htmlspecialchars($product['product_id']); ?>"
+                                    >
                                         <?php echo htmlspecialchars($product['code'] . ' - ' . $product['name']); ?>
                                     </option>
                                 <?php endforeach; ?>
@@ -230,7 +237,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['detalles_venta']))
                     <button class="nuevo">Nuevo</button>
                     <button class="editar">Editar</button>
                     <button class="cancelar">Cancelar</button>
+                    <button class="guardar" onclick="saveOrder()">Guardar Orden</button>
                 </div>
+
                 <table id="productTable">
                     <thead>
                         <tr>
@@ -327,64 +336,109 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['detalles_venta']))
 
     let products = [];
 
-function addProduct() {
-    const productSelect = document.getElementById('product');
-    const quantity = document.getElementById('quantity').value;
-    const price = document.getElementById('price').value;
+    function addProduct() {
+        const productSelect = document.getElementById('product');
 
-    if (!productSelect.value || !quantity || !price) {
-        alert('Por favor, complete todos los campos del producto');
-        return;
+        const quantity = document.getElementById('quantity').value;
+        const price = document.getElementById('price').value;
+
+        if (!productSelect.value || !quantity || !price) {
+            alert('Por favor, complete todos los campos del producto');
+            return;
+        }
+
+        const selectedOption = productSelect.options[productSelect.selectedIndex];
+        const product = {
+            product_id: selectedOption.dataset.productid,
+            code: productSelect.value,
+            name: selectedOption.text,
+            quantity: parseInt(quantity),
+            stock: parseInt(selectedOption.dataset.stock),
+            price: parseFloat(price),
+            total: parseFloat(quantity) * parseFloat(price)
+        };
+
+        products.push(product);
+        updateProductTable();
+        calculateTotals();
+        clearProductForm();
     }
 
-    const selectedOption = productSelect.options[productSelect.selectedIndex];
-    const product = {
-        code: productSelect.value,
-        name: selectedOption.text,
-        quantity: parseFloat(quantity),
-        price: parseFloat(price),
-        total: parseFloat(quantity) * parseFloat(price)
-    };
+    function updateProductTable() {
+        const tbody = document.getElementById('productTableBody');
+        tbody.innerHTML = '';
 
-    products.push(product);
-    updateProductTable();
-    calculateTotals();
-    clearProductForm();
-}
-
-function updateProductTable() {
-    const tbody = document.getElementById('productTableBody');
-    tbody.innerHTML = '';
-
-    products.forEach(product => {
-        const row = tbody.insertRow();
-        row.innerHTML = `
+        products.forEach(product => {
+            const row = tbody.insertRow();
+            row.innerHTML = `
             <td>${product.code}</td>
             <td>${product.name}</td>
             <td>${product.quantity}</td>
             <td>${product.price.toFixed(2)}</td>
             <td>${product.total.toFixed(2)}</td>
         `;
-    });
-}
+        });
+    }
 
-function calculateTotals() {
-    const totalNeto = products.reduce((sum, product) => sum + product.total, 0);
-    const igv = totalNeto * 0.18;
-    const totalFinal = totalNeto + igv;
+    function calculateTotals() {
+        const totalNeto = products.reduce((sum, product) => sum + product.total, 0);
+        const igv = totalNeto * 0.18;
+        const totalFinal = totalNeto + igv;
 
-    document.getElementById('totalNeto').textContent = totalNeto.toFixed(2);
-    document.getElementById('igv').textContent = igv.toFixed(2);
-    document.getElementById('totalFinal').textContent = totalFinal.toFixed(2);
-}
+        document.getElementById('totalNeto').textContent = totalNeto.toFixed(2);
+        document.getElementById('igv').textContent = igv.toFixed(2);
+        document.getElementById('totalFinal').textContent = totalFinal.toFixed(2);
+    }
 
-function clearProductForm() {
-    document.getElementById('product').value = '';
-    document.getElementById('quantity').value = '';
-    document.getElementById('price').value = '';
-    document.getElementById('stock').value = '';
-}
+    function clearProductForm() {
+        document.getElementById('product').value = '';
+        document.getElementById('quantity').value = '';
+        document.getElementById('price').value = '';
+        document.getElementById('stock').value = '';
+    }
 
+    function saveOrder() {
+        // Recopilar datos del formulario principal
+        const orderData = {
+            code: document.getElementById('code').value,
+            customer_id: document.getElementById('customer').value,
+            employee_id: document.getElementById('employee').value,
+            customer_dni: document.getElementById('dni').value,
+            customer_address: document.getElementById('address').value,
+            pay_method: document.getElementById('paymentType').value,
+            currency: document.getElementById('currency').value,
+            branch_office: document.getElementById('branch_office').value,
+            date: document.getElementById('date').value,
+            notes: document.getElementById('notes').value,
+            totalNeto: document.getElementById('totalNeto').innerText,
+            igv: document.getElementById('igv').innerText,
+            final_price: document.getElementById('totalFinal').innerText,
+            products: products // Array de productos que ya tienes
+        };
+
+
+        // path dinamico
+        fetch('../../controllers/ventas/savesSalesOrder.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(orderData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Orden de venta guardada con éxito');
+                    // Limpiar el formulario o redirigir a una nueva página
+                } else {
+                    alert('Error al guardar la orden de venta: ' + data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error al guardar la orden de venta');
+            });
+    }
 </script>
 
 </html>
