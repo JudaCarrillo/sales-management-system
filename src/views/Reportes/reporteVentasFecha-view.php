@@ -6,11 +6,8 @@ $controller = new SalesReportController();
 
 if (isset($_POST['action'])) {
 
-    $title = 'Reporte de Ventas';
     $fechaInicio = $_POST['fechaInicio'];
     $fechaFin = $_POST['fechaFin'];
-    $additionalText = 'Fecha Inicio: ' . $fechaInicio . ' Fecha Fin: ' . $fechaFin;
-
 
     switch ($_POST['action']) {
         case 'query':

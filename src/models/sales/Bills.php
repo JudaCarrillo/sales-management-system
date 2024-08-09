@@ -98,4 +98,18 @@ class Bills
         $result = $this->db->query($sql);
         return $result->fetch_assoc();
     }
+
+    public function getReportByDateRange($firstDate, $lastDate)
+    {
+
+        $where = " date_issue BETWEEN '" . $firstDate->format('Y-m-d') . "' AND '" . $lastDate->format('Y-m-d') . "'";
+
+        $joins = " INNER JOIN customers c ON so.customer_dni = c.dni";
+
+
+        $sql = "SELECT so.igv, c.name, so.date_issue, so.currency, so.final_price FROM " . $this->table . " so " . $joins . " WHERE " . $where;
+        $result = $this->db->query($sql);
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
 }
